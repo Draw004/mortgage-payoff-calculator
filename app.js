@@ -47,7 +47,7 @@
   function syncLocaleUi(){
     const id=regionIdentity();
     els.regionSelect.value=L.getRegion(); els.currencySelect.value=L.getCurrency(); els.localeCurrent.textContent=`${L.getProfile().label} · ${L.getCurrency()}`;
-    $('productLabel').textContent=id.product; $('toolTitle').textContent=id.title; $('balanceLabel').textContent=id.balance; $('termLabel').textContent=id.term; $('extraAmountLabel').textContent=id.extra; $('extraFrequencyLabel').textContent=id.extraFreq; $('currentPaymentLabel').textContent=id.current; $('reportBtn').textContent=id.report; $('fullPayoffHeading').textContent=id.full; $('prepaymentChargeLabel').textContent=id.charge; $('methodologyCountryNote').textContent=id.note;
+    $('productLabel').textContent=id.product; qsa('.footer-product-name,.footer-product-bottom').forEach(n=>n.textContent=id.product); $('toolTitle').textContent=id.title; $('balanceLabel').textContent=id.balance; $('termLabel').textContent=id.term; $('extraAmountLabel').textContent=id.extra; $('extraFrequencyLabel').textContent=id.extraFreq; $('currentPaymentLabel').textContent=id.current; $('reportBtn').textContent=id.report; $('fullPayoffHeading').textContent=id.full; $('prepaymentChargeLabel').textContent=id.charge; $('methodologyCountryNote').textContent=id.note;
     const symbol=L.currencySymbol(); qsa('.currency-prefix').forEach(n=>n.textContent=symbol); $('biweeklyOption').textContent=twoWeekLabel();
     const payBi=els.payFrequency.querySelector('option[value="biweekly"]'); if(payBi) payBi.textContent=twoWeekLabel();
     const inv=L.getRegion()==='IN'?'SIP Calculator':'Recurring Investment Calculator'; qsa('.investment-tool-link,.footer-investment-link').forEach(n=>n.textContent=inv);
