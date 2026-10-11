@@ -126,3 +126,17 @@
 .planner-layout,.planner-card,.summary-column,.summary-card,.fields,.field,.money-input,.input-suffix{min-width:0}
 .field input,.field select,.money-input input,.input-suffix input{min-width:0;max-width:100%}
 @media(max-width:390px){.view-toggle,.view-btn{min-width:0}.view-btn{padding-left:9px;padding-right:9px}}
+
+
+/* CORE7 shared-shell conformance - 2026-10-11 */
+.site-header .brand-wordmark{display:block;color:#102945;font-size:23px;line-height:1;font-weight:900;letter-spacing:.08em}
+.site-header .product-label{text-decoration:none}
+.site-header .mobile-nav{display:none;position:relative}
+.site-header .mobile-nav summary{list-style:none;cursor:pointer;border:1px solid #d6e2e9;border-radius:9px;padding:8px 11px;font-weight:800;color:#102945;background:#fff}
+.site-header .mobile-nav summary::-webkit-details-marker{display:none}
+.site-header .mobile-nav summary::marker{content:""}
+.mobile-nav-links{position:absolute;right:0;top:46px;min-width:220px;background:#fff;border:1px solid #d6e2e9;border-radius:12px;padding:8px;box-shadow:0 14px 36px rgba(16,41,69,.16);display:grid;z-index:60}
+.mobile-nav-links a{text-decoration:none;padding:9px 10px;border-radius:7px;color:#566b85;font-size:13px;font-weight:750}
+.mobile-nav-links a:hover{background:#edf8f6;color:#08756d}
+@media(max-width:1080px){.site-header .mobile-nav{display:block}.site-header .header-actions{gap:12px}}
+@media(max-width:720px){.site-header .brand-wordmark{font-size:20px}.site-header .mobile-nav summary{padding:7px 9px}.mobile-nav-links{position:fixed;right:14px;top:68px;min-width:220px;max-width:calc(100vw - 28px)}}

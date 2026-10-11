@@ -14,20 +14,33 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-cluster">
-        <a class="brand" href="/">CARROWMONT</a><span class="brand-divider" aria-hidden="true"></span>
-        <span class="product-label" id="productLabel">Mortgage Payoff</span>
+        <a class="brand carrowmont-brand" href="/" aria-label="Carrowmont home"><span class="brand-wordmark">CARROWMONT</span></a>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <a class="product-label" id="productLabel" href="#planner">Home Loan Prepayment / Foreclosure</a>
       </div>
       <div class="header-actions">
-        <nav class="top-nav" aria-label="Primary"><a href="/tools.html">Tools</a><a href="/learn.html">Learn</a><a href="/about.html">About</a></nav>
+        <nav class="top-nav" aria-label="Primary navigation">
+          <a href="#planner">Calculator</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#methodology">Methodology</a>
+          <a href="/tools.html">All tools</a>
+          <a href="/">Home</a>
+        </nav>
         <details class="locale-menu" id="localeMenu">
           <summary id="localeSummary" aria-label="Choose country and currency"><span class="locale-globe" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3z"/></svg></span><span id="localeCurrent">India · INR</span><span class="locale-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
           <div class="locale-popover">
             <h3>Country &amp; currency</h3>
-            <p>Country changes familiar terminology. Currency changes the unit and number format only.</p>
-            <label>Country<select id="regionSelect"></select></label>
+            <p>Choose the context that makes the numbers easiest to understand.</p>
+            <label>Country / region<select id="regionSelect"></select></label>
             <label>Currency<select id="currencySelect"></select></label>
-            <div class="locale-note"><strong>Important:</strong> Changing currency does not convert entered amounts using an exchange rate.</div>
+            <div class="locale-note"><strong>Important:</strong> changing currency changes the unit and number format only. It does not convert entered amounts using an exchange rate. Country selection changes familiar loan terminology and documented conventions where relevant.</div>
             <button class="btn btn-primary btn-small" id="localeDone" type="button">Done</button>
+          </div>
+        </details>
+        <details class="mobile-nav">
+          <summary aria-label="Open navigation">Menu</summary>
+          <div class="mobile-nav-links">
+            <a href="/">Carrowmont home</a><a href="/tools.html">All tools</a><a href="#planner">Calculator</a><a href="#how-it-works">How it works</a><a href="#methodology">Methodology</a><a href="#faq">FAQ</a><a href="/about.html">About Carrowmont</a><a href="/contact.html">Contact</a>
           </div>
         </details>
       </div>
@@ -56,7 +69,7 @@
 
     <section class="privacy-strip"><div class="container privacy-inner"><span class="privacy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><strong>Your loan inputs stay in this browser by default.</strong><span>Compatible values can be reused by other Carrowmont tools through local shared plan state. No automatic currency conversion is performed.</span></div></div></section>
 
-    <section class="planner-shell">
+    <section class="planner-shell" id="planner">
       <div class="container planner-layout">
         <div class="planner-card">
           <div class="section-head"><div><p class="eyebrow">YOUR LOAN</p><h2>Model your repayment path</h2></div><button class="text-btn" id="resetBtn" type="button">Reset</button></div>
@@ -154,7 +167,7 @@
       </div>
     </section>
 
-    <section class="analysis-section">
+    <section class="analysis-section" id="how-it-works">
       <div class="container">
         <div class="section-title"><p class="eyebrow">BALANCE PATH</p><h2>See how the balance changes over time</h2><p>Baseline and scenario paths use the same calculation engine as the result cards, CSV and PDF.</p></div>
         <div class="chart-card"><svg id="balanceChart" viewBox="0 0 900 360" role="img" aria-labelledby="chartTitle chartDesc"><title id="chartTitle">Loan balance over time</title><desc id="chartDesc">Baseline and scenario remaining balance paths.</desc></svg><div class="chart-key-values"><span><i class="legend-line baseline"></i>Baseline <strong id="chartBaselineEnd">-</strong></span><span><i class="legend-line scenario"></i>Scenario <strong id="chartScenarioEnd">-</strong></span></div></div>
@@ -169,7 +182,7 @@
       </div>
     </section>
 
-    <section class="analysis-section">
+    <section class="analysis-section" id="methodology">
       <div class="container two-col-info">
         <div>
           <div class="section-title"><p class="eyebrow">CONNECTED PLANNING</p><h2>Use the result elsewhere in Carrowmont</h2><p>Compatible values are shared only when their meaning is clear. Carrowmont does not silently turn a loan balance into an investment or goal.</p></div>
@@ -203,7 +216,15 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><strong>CARROWMONT</strong><p>Clear financial planning tools for everyday decisions.</p></div><div class="footer-col"><strong>Tools</strong><a class="footer-investment-link" href="/sip-calculator/">Recurring Investment Calculator</a><a href="/retirement-calculator/">Retirement Planner</a><a href="/inflation-calculator/">Inflation Calculator</a><a href="/goal-planner/">Goal Planner</a><a href="/financial-independence/">Financial Independence</a><a href="/budget-cash-flow-planner/">Budget &amp; Cash Flow Planner</a><a href="/mortgage-payoff-calculator/" aria-current="page">Mortgage / Home Loan Payoff</a><a href="/tools.html">All tools</a></div><div class="footer-col"><strong>Learn</strong><a href="/learn.html">Learning hub</a><a href="/methodology.html">Methodology</a><a href="/disclaimer.html">Disclaimer</a></div></div><div class="footer-bottom"><span>&copy; 2026 Carrowmont</span><span>Illustrative estimates, not financial advice.</span></div></div></footer>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-block"><a class="footer-wordmark" href="/">CARROWMONT</a><strong class="footer-product-name">Home Loan Prepayment / Foreclosure</strong><p>Explore how extra principal, part-prepayments or an earlier payoff target could change your home loan or mortgage.</p><span class="footer-small">Educational planning tool &middot; Carrowmont</span></div>
+      <div class="footer-col"><strong>Tools</strong><a class="footer-investment-link" href="/sip-calculator/">SIP Calculator</a><a href="/retirement-calculator/">Retirement Planner</a><a href="/inflation-calculator/">Inflation Calculator</a><a href="/goal-planner/">Goal Planner</a><a href="/financial-independence/">Financial Independence</a><a href="/budget-cash-flow-planner/">Budget &amp; Cash Flow Planner</a><a href="/mortgage-payoff-calculator/" aria-current="page">Mortgage / Home Loan Payoff</a><a href="/tools.html">All tools</a></div>
+      <div class="footer-col"><strong>Carrowmont</strong><a href="/learn.html">Learn</a><a href="/about.html">About</a><a href="/methodology.html">Methodology</a><a href="/contact.html">Contact</a></div>
+      <div class="footer-col"><strong>Legal</strong><a href="/disclaimer.html">Disclaimer</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+    </div>
+    <div class="container footer-bottom"><span>&copy; 2026 Carrowmont &middot; <span class="footer-product-bottom">Home Loan Prepayment / Foreclosure</span></span><span>Illustrative estimates, not financial advice.</span></div>
+  </footer>
 
   <script src="locale.js"></script>
   <script src="shared-plan-state.js" data-carrowmont-tool="mortgage-payoff-calculator"></script>
