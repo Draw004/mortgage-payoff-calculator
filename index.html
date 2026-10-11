@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mortgage Payoff &amp; Home Loan Prepayment Calculator | Carrowmont</title>
+  <meta name="description" content="Estimate how extra mortgage or home-loan payments, lump-sum prepayments and an earlier payoff target may change interest, repayments and time to debt-free." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://carrowmont.com/mortgage-payoff-calculator/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-cluster">
+        <a class="brand" href="/">CARROWMONT</a><span class="brand-divider" aria-hidden="true"></span>
+        <span class="product-label" id="productLabel">Mortgage Payoff</span>
+      </div>
+      <div class="header-actions">
+        <nav class="top-nav" aria-label="Primary"><a href="/tools.html">Tools</a><a href="/learn.html">Learn</a><a href="/about.html">About</a></nav>
+        <details class="locale-menu" id="localeMenu">
+          <summary id="localeSummary" aria-label="Choose country and currency"><span class="locale-globe" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3z"/></svg></span><span id="localeCurrent">India · INR</span><span class="locale-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="locale-popover">
+            <h3>Country &amp; currency</h3>
+            <p>Country changes familiar terminology. Currency changes the unit and number format only.</p>
+            <label>Country<select id="regionSelect"></select></label>
+            <label>Currency<select id="currencySelect"></select></label>
+            <div class="locale-note"><strong>Important:</strong> Changing currency does not convert entered amounts using an exchange rate.</div>
+            <button class="btn btn-primary btn-small" id="localeDone" type="button">Done</button>
+          </div>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="container">
+        <div class="tool-breadcrumb"><a href="/tools.html">&larr; Back to all Carrowmont tools</a></div>
+        <div class="intro-grid">
+          <div>
+            <div class="eyebrow" id="eyebrow">HOME &amp; LOANS</div>
+            <h1 id="toolTitle">See how extra payments could change your home loan or mortgage</h1>
+            <p class="lede" id="toolLede">Compare your current repayment path with regular extra payments, a lump-sum prepayment or an earlier payoff target. Results are educational estimates, not a lender payoff quote.</p>
+            <div class="chips"><span>No login</span><span>Local calculations</span><span>Country-aware terminology</span><span>PDF + CSV</span></div>
+          </div>
+          <aside class="intro-card" aria-label="What this calculator helps you explore">
+            <strong id="introCardTitle">Explore an earlier payoff</strong>
+            <div class="mini-flow"><span>Current loan</span><b>&rarr;</b><span>Extra principal</span><b>&rarr;</b><span>Time &amp; interest saved</span></div>
+            <p id="introCardText">Use your current balance, lender rate and remaining term. Carrowmont keeps scheduled repayments, planning view and part-prepayment cadence separate.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy-strip"><div class="container privacy-inner"><span class="privacy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><strong>Your loan inputs stay in this browser by default.</strong><span>Compatible values can be reused by other Carrowmont tools through local shared plan state. No automatic currency conversion is performed.</span></div></div></section>
+
+    <section class="planner-shell">
+      <div class="container planner-layout">
+        <div class="planner-card">
+          <div class="section-head"><div><p class="eyebrow">YOUR LOAN</p><h2>Model your repayment path</h2></div><button class="text-btn" id="resetBtn" type="button">Reset</button></div>
+
+          <fieldset class="mode-fieldset"><legend>What do you want to explore?</legend><div class="mode-grid" role="radiogroup" aria-label="Scenario mode">
+            <button class="mode-btn active" type="button" data-mode="recurring" aria-pressed="true">Pay extra regularly</button>
+            <button class="mode-btn" type="button" data-mode="lump" aria-pressed="false">Make a lump-sum prepayment</button>
+            <button class="mode-btn" type="button" data-mode="target" aria-pressed="false">Pay off by a target date</button>
+            <button class="mode-btn" type="button" data-mode="full" aria-pressed="false">Pay off the loan in full</button>
+          </div></fieldset>
+
+          <div class="fields common-fields">
+            <label class="field"><span id="balanceLabel">Current mortgage balance</span><div class="money-input"><span class="currency-prefix">₹</span><input id="balance" type="number" min="1" step="1000" value="5000000" inputmode="decimal" /></div><small>Use the principal you currently owe, not the original loan amount.</small></label>
+            <label class="field"><span>Annual interest rate</span><div class="input-suffix"><input id="annualRate" type="number" min="0" max="50" step="0.01" value="8.50" inputmode="decimal" /><span>%</span></div><small>Use your current lender rate for a closer estimate. This is not a live market-rate input.</small></label>
+            <label class="field"><span id="termLabel">Remaining loan term - years</span><input id="remainingYears" type="number" min="0" max="100" step="1" value="15" /></label>
+            <label class="field"><span>Additional months</span><input id="remainingMonths" type="number" min="0" max="11" step="1" value="0" /></label>
+            <label class="field"><span>Scheduled repayment frequency</span><select id="paymentFrequency"><option value="monthly">Monthly</option><option value="biweekly" id="biweeklyOption">Every 2 Weeks</option><option value="weekly">Weekly</option></select><small>This is how often the lender's normal repayment is made.</small></label>
+            <div class="field"><span>Planning view</span><div class="view-toggle" role="group" aria-label="Planning view"><button type="button" class="view-btn active" data-view="monthly" aria-pressed="true">Monthly View</button><button type="button" class="view-btn" data-view="paycycle" aria-pressed="false">Pay Cycle View</button></div><small>Changes affordability/set-aside display only, never the lender repayment cadence.</small></div>
+          </div>
+
+          <div id="payCycleFields" class="subpanel hidden">
+            <label class="field"><span>Your pay cycle</span><select id="payFrequency"><option value="weekly">Weekly</option><option value="biweekly">Every 2 Weeks</option><option value="semimonthly">Twice Monthly</option><option value="fourweekly">Every 4 Weeks</option><option value="monthly" selected>Monthly</option></select><small>If a compatible Carrowmont pay-cycle preference exists, it may be offered here after validation.</small></label>
+          </div>
+
+          <label class="check-card current-payment-card"><input id="useCurrentPayment" type="checkbox" /><span><strong>Use my lender's current repayment amount</strong><small>Otherwise Carrowmont calculates the scheduled repayment from balance, rate, term and repayment frequency.</small></span></label>
+          <div id="currentPaymentField" class="subpanel hidden"><label class="field"><span id="currentPaymentLabel">Current regular repayment</span><div class="money-input"><span class="currency-prefix">₹</span><input id="currentPayment" type="number" min="0" step="100" value="0" /></div></label></div>
+
+          <section class="mode-panel" id="recurringPanel" data-mode-panel="recurring">
+            <div class="mode-panel-head"><h3>Regular extra / part-prepayments</h3><p id="recurringHelp">Keep this off if you do not want a recurring extra-payment scenario.</p></div>
+            <label class="check-card"><input id="recurringEnabled" type="checkbox" /><span><strong>Enable recurring part-prepayment</strong><small>No cadence is selected by default. You choose the timing that reflects your own plan.</small></span></label>
+            <div id="recurringFields" class="fields hidden">
+              <label class="field"><span id="extraAmountLabel">Extra amount</span><div class="money-input"><span class="currency-prefix">₹</span><input id="recurringExtra" type="number" min="0" step="100" value="0" /></div></label>
+              <label class="field"><span id="extraFrequencyLabel">Extra / part-prepayment frequency</span><select id="extraFrequency"><option value="">Choose frequency</option><option value="everyScheduled">Every scheduled repayment</option><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="halfyearly">Half-yearly / Every 6 months</option><option value="annual">Annually</option><option value="custom">Custom interval</option></select></label>
+              <label class="field"><span>Start after scheduled repayments</span><input id="extraStartPeriod" type="number" min="1" step="1" value="1" /><small>1 means the next eligible repayment date.</small></label>
+              <label class="field hidden" id="customIntervalField"><span>Custom interval - months</span><input id="customIntervalMonths" type="number" min="1" max="120" step="1" value="3" /></label>
+              <label class="field"><span>Optional one-time lump sum</span><div class="money-input"><span class="currency-prefix">₹</span><input id="optionalLumpSum" type="number" min="0" step="1000" value="0" /></div></label>
+              <label class="field"><span>Apply lump sum at repayment #</span><input id="optionalLumpSumPeriod" type="number" min="1" step="1" value="1" /></label>
+            </div>
+            <div class="set-aside-card hidden" id="setAsideCard"><span>Set aside per pay cycle</span><strong id="setAsideAmount">₹0</strong><small>Planning amount only. It does not change the scheduled repayment or part-prepayment cadence.</small></div>
+          </section>
+
+          <section class="mode-panel hidden" id="lumpPanel" data-mode-panel="lump">
+            <div class="mode-panel-head"><h3>Lump-sum prepayment</h3><p>Compare keeping the regular payment versus a mathematical lower-payment illustration.</p></div>
+            <div class="fields">
+              <label class="field"><span>Lump-sum amount</span><div class="money-input"><span class="currency-prefix">₹</span><input id="lumpSumAmount" type="number" min="0" step="1000" value="500000" /></div></label>
+              <label class="field"><span>Apply at scheduled repayment #</span><input id="lumpSumPeriod" type="number" min="1" step="1" value="1" /></label>
+              <label class="field field-wide"><span>After the lump sum</span><select id="lumpStrategy"><option value="finish-sooner">Keep regular repayment - finish sooner</option><option value="lower-payment">Keep original payoff date - lower modeled repayment</option></select><small>The lower-payment option is a mathematical recast illustration. Your lender may not automatically recalculate the repayment this way.</small></label>
+            </div>
+          </section>
+
+          <section class="mode-panel hidden" id="targetPanel" data-mode-panel="target">
+            <div class="mode-panel-head"><h3>Target payoff</h3><p>Choose a shorter payoff horizon and see the modeled repayment required.</p></div>
+            <div class="fields">
+              <label class="field"><span>Target payoff - years from now</span><input id="targetYears" type="number" min="0" max="100" step="1" value="10" /></label>
+              <label class="field"><span>Additional months</span><input id="targetMonths" type="number" min="0" max="11" step="1" value="0" /></label>
+              <label class="field field-wide"><span>Optional lump sum applied first</span><div class="money-input"><span class="currency-prefix">₹</span><input id="targetLumpSum" type="number" min="0" step="1000" value="0" /></div></label>
+            </div>
+          </section>
+
+          <section class="mode-panel hidden" id="fullPanel" data-mode-panel="full">
+            <div class="mode-panel-head"><h3 id="fullPayoffHeading">Full early payoff estimate</h3><p>A lender's final payoff / foreclosure quote can differ because of accrued interest, settlement timing and contract-specific charges.</p></div>
+            <div class="fields">
+              <label class="field"><span id="prepaymentChargeLabel">Early repayment / prepayment charge</span><div class="money-input"><span class="currency-prefix">₹</span><input id="prepaymentCharge" type="number" min="0" step="100" value="0" /></div></label>
+              <label class="field"><span>Other lender charges already quoted</span><div class="money-input"><span class="currency-prefix">₹</span><input id="otherCharges" type="number" min="0" step="100" value="0" /></div></label>
+            </div>
+            <div class="warning-box">Carrowmont does not fabricate accrued daily interest or lender charges that you did not enter. Confirm the final settlement amount with your lender.</div>
+          </section>
+
+          <div class="validation" id="validationMessage" role="alert" hidden></div>
+        </div>
+
+        <aside class="summary-column">
+          <section class="summary-card result-hero" aria-live="polite">
+            <span class="result-kicker" id="resultKicker">MODELED IMPACT</span>
+            <strong id="resultHeadline">Enter your loan details to compare paths.</strong>
+            <p id="resultSubtext">Results update as you change assumptions.</p>
+          </section>
+          <section class="summary-card result-grid" id="resultGrid">
+            <div><span id="baselinePaymentCaption">Current modeled repayment</span><strong id="baselinePayment">₹0</strong></div>
+            <div><span id="scenarioPaymentCaption">Scenario repayment</span><strong id="scenarioPayment">₹0</strong></div>
+            <div><span>Interest saved before charges</span><strong id="interestSaved">₹0</strong></div>
+            <div><span>Time saved</span><strong id="timeSaved">0 months</strong></div>
+            <div><span>Baseline payoff</span><strong id="baselinePayoff">-</strong></div>
+            <div><span>Scenario payoff</span><strong id="scenarioPayoff">-</strong></div>
+            <div><span>Entered charges</span><strong id="enteredCharges">₹0</strong></div>
+            <div><span>Net modeled cost reduction</span><strong id="netReduction">₹0</strong></div>
+          </section>
+          <section class="summary-card actions-card">
+            <button class="btn btn-primary" id="reportBtn" type="button">Generate Mortgage Payoff Report</button>
+            <button class="btn btn-secondary" id="copyBtn" type="button">Copy Summary</button>
+            <button class="btn btn-secondary" id="csvBtn" type="button">Download CSV</button>
+            <span id="reportDownloadStatus" class="action-status" aria-live="polite"></span>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="analysis-section">
+      <div class="container">
+        <div class="section-title"><p class="eyebrow">BALANCE PATH</p><h2>See how the balance changes over time</h2><p>Baseline and scenario paths use the same calculation engine as the result cards, CSV and PDF.</p></div>
+        <div class="chart-card"><svg id="balanceChart" viewBox="0 0 900 360" role="img" aria-labelledby="chartTitle chartDesc"><title id="chartTitle">Loan balance over time</title><desc id="chartDesc">Baseline and scenario remaining balance paths.</desc></svg><div class="chart-key-values"><span><i class="legend-line baseline"></i>Baseline <strong id="chartBaselineEnd">-</strong></span><span><i class="legend-line scenario"></i>Scenario <strong id="chartScenarioEnd">-</strong></span></div></div>
+      </div>
+    </section>
+
+    <section class="analysis-section alt">
+      <div class="container">
+        <div class="section-title"><p class="eyebrow">REPAYMENT DETAIL</p><h2>Year-by-year summary</h2><p>Use the compact annual view first. Expand the complete repayment ledger when you need period-level detail.</p></div>
+        <div class="table-card"><div class="table-scroll"><table><thead><tr><th>Year</th><th>Opening balance</th><th>Scheduled repayments</th><th>Extra / lump sums</th><th>Interest</th><th>Principal repaid</th><th>Closing balance</th></tr></thead><tbody id="annualTableBody"></tbody></table></div></div>
+        <details class="detail-disclosure"><summary>View full repayment-period breakdown</summary><div class="table-card"><div class="table-scroll"><table><thead><tr><th>Period</th><th>Date</th><th>Opening balance</th><th>Interest</th><th>Scheduled</th><th>Extra</th><th>Closing balance</th></tr></thead><tbody id="periodTableBody"></tbody></table></div></div></details>
+      </div>
+    </section>
+
+    <section class="analysis-section">
+      <div class="container two-col-info">
+        <div>
+          <div class="section-title"><p class="eyebrow">CONNECTED PLANNING</p><h2>Use the result elsewhere in Carrowmont</h2><p>Compatible values are shared only when their meaning is clear. Carrowmont does not silently turn a loan balance into an investment or goal.</p></div>
+          <div class="handoff-grid">
+            <a href="/budget-cash-flow-planner/"><strong>Budget &amp; Cash Flow</strong><span>Use the regular housing-loan payment as a recurring commitment.</span></a>
+            <a href="/retirement-calculator/planner.html"><strong>Retirement Planner</strong><span>Consider whether the loan payment continues into retirement.</span></a>
+            <a href="/financial-independence/"><strong>Financial Independence</strong><span>Treat the loan payment as a time-limited spending commitment where compatible.</span></a>
+            <a href="/goal-planner/"><strong>Goal Planner</strong><span>Choose deliberately if you want to use today's loan balance as a payoff goal.</span></a>
+            <a href="/sip-calculator/"><strong class="investment-tool-link">Recurring Investment Calculator</strong><span>After payoff, explore investing a payment you may free up.</span></a>
+            <a href="/inflation-calculator/"><strong>Inflation Calculator</strong><span>Explore purchasing-power assumptions separately from the loan balance.</span></a>
+          </div>
+          <button class="text-btn clear-shared" id="clearSharedBtn" type="button">Clear shared Carrowmont plan values</button>
+        </div>
+        <aside class="method-card"><h3>Methodology snapshot</h3><p id="methodologyCountryNote">Carrowmont uses a standard principal-and-interest approximation and keeps lender-specific rules as user-entered charges or disclosed limitations.</p><ul><li>Interest rate stays constant in the scenario.</li><li>Extra principal reduces the modeled balance when applied.</li><li>Final payments are capped so the balance cannot become negative.</li><li>Full payoff is an estimate, not a lender settlement statement.</li></ul><a href="#faq">Read common questions &darr;</a></aside>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <div class="container"><div class="section-title"><p class="eyebrow">FAQ</p><h2>Common questions about paying a loan off early</h2></div><div class="faq-list">
+        <details><summary>Does making extra mortgage payments reduce interest?</summary><p>Under this model, extra principal paid earlier reduces the balance on which later interest is calculated. Your lender's exact timing and product rules can differ.</p></details>
+        <details><summary>Is it better to reduce the payment or shorten the loan term after a lump sum?</summary><p>Carrowmont shows both mathematical outcomes. Keeping the regular payment generally shortens the modelled term; lowering the payment keeps the original payoff horizon in the illustration. Your lender may not automatically recast the loan.</p></details>
+        <details><summary>What is the difference between current balance and payoff amount?</summary><p>A lender payoff amount can include accrued interest and contract-specific administration, discharge or early-repayment charges. Carrowmont does not invent those amounts.</p></details>
+        <details><summary>Can my lender charge a prepayment or early repayment fee?</summary><p>Possibly. Rules depend on country, loan type and contract. Enter any charge you already know and confirm the final amount with your lender.</p></details>
+        <details><summary>What does home-loan foreclosure mean in India?</summary><p>In Indian lending usage, foreclosure or pre-closure can refer to voluntarily repaying the outstanding home loan in full before the scheduled end. This differs from the common US meaning of foreclosure after default.</p></details>
+        <details><summary>What is mortgage overpayment in the UK?</summary><p>An overpayment is an amount paid above the contractual mortgage payment. Some products limit penalty-free overpayments or apply an Early Repayment Charge, so check your lender terms.</p></details>
+        <details><summary>How does a target payoff calculator work?</summary><p>It calculates the repayment required to amortize the modeled balance over the shorter target horizon, then verifies the result with the same period-by-period ledger.</p></details>
+        <details><summary>Does Carrowmont assume interest rates stay unchanged?</summary><p>Yes in V1. Enter the rate you want to model. Variable-rate changes and future fixed-rate renewals are outside this first version.</p></details>
+        <details><summary>Can I compare prepaying with investing?</summary><p>Not in this calculator. That decision requires investment-return, risk, tax and liquidity assumptions and is better treated as a separate future tool.</p></details>
+        <details><summary>Why might my lender's result differ from Carrowmont?</summary><p>Lenders may calculate interest daily, use different compounding conventions, apply fees, use settlement dates, round payments, or impose product-specific prepayment rules. Treat Carrowmont as an educational planning estimate.</p></details>
+      </div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><strong>CARROWMONT</strong><p>Clear financial planning tools for everyday decisions.</p></div><div class="footer-col"><strong>Tools</strong><a class="footer-investment-link" href="/sip-calculator/">Recurring Investment Calculator</a><a href="/retirement-calculator/">Retirement Planner</a><a href="/inflation-calculator/">Inflation Calculator</a><a href="/goal-planner/">Goal Planner</a><a href="/financial-independence/">Financial Independence</a><a href="/budget-cash-flow-planner/">Budget &amp; Cash Flow Planner</a><a href="/mortgage-payoff-calculator/" aria-current="page">Mortgage / Home Loan Payoff</a><a href="/tools.html">All tools</a></div><div class="footer-col"><strong>Learn</strong><a href="/learn.html">Learning hub</a><a href="/methodology.html">Methodology</a><a href="/disclaimer.html">Disclaimer</a></div></div><div class="footer-bottom"><span>&copy; 2026 Carrowmont</span><span>Illustrative estimates, not financial advice.</span></div></div></footer>
+
+  <script src="locale.js"></script>
+  <script src="shared-plan-state.js" data-carrowmont-tool="mortgage-payoff-calculator"></script>
+  <script src="core.js"></script>
+  <script src="pdf-export.js"></script>
+  <script src="report-standard.js"></script>
+  <script src="mortgage-payoff-pdf-renderer.js"></script>
+  <script src="app.js"></script>
+  <script src="shared-plan-bridge.js" data-carrowmont-tool="mortgage-payoff-calculator"></script>
+  <script src="analytics.js" data-carrowmont-tool="mortgage-payoff-calculator"></script>
+</body>
+</html>
