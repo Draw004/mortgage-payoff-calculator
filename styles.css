@@ -140,3 +140,19 @@
 .mobile-nav-links a:hover{background:#edf8f6;color:#08756d}
 @media(max-width:1080px){.site-header .mobile-nav{display:block}.site-header .header-actions{gap:12px}}
 @media(max-width:720px){.site-header .brand-wordmark{font-size:20px}.site-header .mobile-nav summary{padding:7px 9px}.mobile-nav-links{position:fixed;right:14px;top:68px;min-width:220px;max-width:calc(100vw - 28px)}}
+
+
+/* Mortgage Learn & Education Integration V1 - 2026-10-11 */
+.learn-bridge-section{padding:22px 0 4px;background:#f7fbfb}
+.learn-bridge-card{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:22px 24px;border:1px solid #c9dfdf;border-radius:18px;background:#fff;box-shadow:0 8px 22px rgba(16,41,69,.045)}
+.learn-bridge-card h2{margin:3px 0 8px;color:#102945;font-size:clamp(22px,2.2vw,30px);line-height:1.16;letter-spacing:-.35px}
+.learn-bridge-card p:not(.eyebrow){max-width:760px;margin:0;color:#4e667d;line-height:1.55}
+.learn-bridge-actions{display:flex;flex-direction:column;align-items:stretch;gap:9px;min-width:245px}
+.learn-bridge-actions .btn{justify-content:center;text-align:center;text-decoration:none}
+.learn-browse-link{text-align:center;text-decoration:none;padding:8px 6px}
+.result-learn-card{border-color:#c8dfdd;background:linear-gradient(180deg,#f7fbfb,#fff)}
+.result-learn-card>strong{display:block;margin:4px 0 7px;color:#102945;font-size:17px;line-height:1.3}
+.result-learn-card p{margin:0 0 11px;color:#516b81;font-size:13.5px;line-height:1.5}
+.result-learn-card a{color:#08756d;font-weight:900;text-decoration:none;font-size:13.5px}
+.result-learn-card a:hover{text-decoration:underline}
+@media(max-width:800px){.learn-bridge-section{padding-top:16px}.learn-bridge-card{display:block;padding:18px}.learn-bridge-actions{min-width:0;margin-top:16px}.learn-bridge-actions .btn{width:100%}}

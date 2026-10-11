@@ -38,6 +38,25 @@
   }
   function twoWeekLabel(){ const p=L.getProfile(); return p.twoWeekLabel==='fortnightly'?'Fortnightly':p.twoWeekLabel==='biweekly'?'Biweekly':'Every 2 Weeks'; }
   function countryDefaultPay(){ return L.getProfile().contributionFrequency||'monthly'; }
+  function countryFaq(region=L.getRegion()){
+    const map={
+      IN:{q:'What does home-loan foreclosure or pre-closure mean in India?',a:'In Indian home-loan usage, foreclosure or pre-closure can mean voluntarily repaying the outstanding loan in full before the scheduled end. Check the lender and loan type for any applicable prepayment conditions or charges.'},
+      US:{q:'What should I check before making extra mortgage principal payments in the United States?',a:'Confirm that extra money is applied to principal, check the loan terms for any prepayment penalty, and remember that an official payoff quote can include accrued interest and servicer charges beyond the current principal balance.'},
+      CA:{q:'What is a mortgage prepayment privilege in Canada?',a:'Many Canadian mortgage contracts specify how much extra principal can be paid, and when, without a penalty. The exact privilege and any penalty for exceeding it come from the mortgage contract.'},
+      GB:{q:'What is mortgage overpayment in the UK?',a:'An overpayment is money paid above the contractual mortgage payment. Some products allow a penalty-free annual amount while others can apply an Early Repayment Charge, so check the actual mortgage deal.'},
+      AU:{q:'What should I check before making extra home-loan repayments in Australia?',a:'Check whether extra repayments are allowed, whether the loan is fixed or variable, and whether fees, redraw or offset features change how the payment affects the balance.'},
+      NZ:{q:'What should I check before making extra home-loan repayments in New Zealand?',a:'Check the contract for extra-repayment limits and possible break or early-repayment charges, especially on fixed lending. Confirm how the lender applies the extra amount.'},
+      IE:{q:'What should I check before overpaying a mortgage in Ireland?',a:'Check the mortgage contract for overpayment limits, fixed-rate conditions and any early-repayment charge. The allowed amount and treatment can vary by lender and product.'}
+    };
+    return map[region]||{q:'What lender rules should I check before making extra repayments?',a:'Check whether extra principal is allowed, whether limits or charges apply, how the lender applies the payment and how an official payoff or settlement amount is calculated.'};
+  }
+  function resultLearn(input){
+    if(input.paymentFrequency==='biweekly'||input.paymentFrequency==='fortnightly') return {href:'/biweekly-fortnightly-mortgage-payments.html',title:'Where do every-two-weeks savings actually come from?',text:'Separate the 26-half-payment effect from twice-monthly timing and lender processing.'};
+    if(mode==='target') return {href:'/pay-off-mortgage-five-years-early.html',title:'How does a target payoff date change the required payment?',text:'Work backward from a shorter horizon and see why the required extra depends on rate, balance and remaining term.'};
+    if(mode==='lump') return {href:'/monthly-extra-vs-annual-lump-sum-mortgage.html',title:'Monthly extra or one lump sum: what changes?',text:'Compare the same annual extra cash at different times so timing is not confused with contribution size.'};
+    if(mode==='recurring'&&input.extraFrequency==='annual') return {href:'/one-extra-mortgage-payment-a-year.html',title:'What can one extra payment a year really save?',text:'See transparent 25-year examples instead of relying on a universal “five years saved” claim.'};
+    return {href:'/extra-mortgage-payments-early-vs-late.html',title:'Why does paying extra earlier usually save more?',text:'See how the same principal reduction can affect more future interest periods when it happens earlier.'};
+  }
 
   function populateLocale(){
     const regions=Object.entries(L.regions).sort((a,b)=>{if(a[0]==='OTHER')return 1;if(b[0]==='OTHER')return -1;return a[1].label.localeCompare(b[1].label,'en');});
@@ -51,6 +70,7 @@
     const symbol=L.currencySymbol(); qsa('.currency-prefix').forEach(n=>n.textContent=symbol); $('biweeklyOption').textContent=twoWeekLabel();
     const payBi=els.payFrequency.querySelector('option[value="biweekly"]'); if(payBi) payBi.textContent=twoWeekLabel();
     const inv=L.getRegion()==='IN'?'SIP Calculator':'Recurring Investment Calculator'; qsa('.investment-tool-link,.footer-investment-link').forEach(n=>n.textContent=inv);
+    const faq=countryFaq(); $('countryFaqQuestion').textContent=faq.q; $('countryFaqAnswer').textContent=faq.a;
   }
 
   function readInput(){
@@ -143,6 +163,7 @@
     if(!result.ok){ showError(result.error); els.resultHeadline.textContent='Review the highlighted assumptions.'; els.resultSubtext.textContent=errors[result.error]||'The model could not calculate this scenario.'; return; }
     renderResults(result,input); renderChart(result,input); renderTables(result,input); writeShared(result,input);
     const setAside=C.setAsidePerPayCycle(input); els.setAsideAmount.textContent=money(setAside,{decimals:2}); els.setAsideCard.classList.toggle('hidden',!(planningView==='paycycle'&&input.recurringEnabled&&input.extraFrequency&&input.recurringExtra>0));
+    const learn=resultLearn(input); $('resultLearnTitle').textContent=learn.title; $('resultLearnText').textContent=learn.text; $('resultLearnLink').setAttribute('href',learn.href);
   }
 
   function summaryText(){
