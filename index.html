@@ -69,6 +69,9 @@
 
     <section class="privacy-strip"><div class="container privacy-inner"><span class="privacy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><strong>Your loan inputs stay in this browser by default.</strong><span>Compatible values can be reused by other Carrowmont tools through local shared plan state. No automatic currency conversion is performed.</span></div></div></section>
 
+
+    <section class="learn-bridge-section" aria-labelledby="learnBridgeTitle"><div class="container"><div class="learn-bridge-card"><div><p class="eyebrow">UNDERSTAND BEFORE YOU MODEL</p><h2 id="learnBridgeTitle">See why extra principal changes future interest.</h2><p>New to mortgage prepayments or home-loan part-prepayments? Start with the mechanics, then come back and test your own balance, rate and term.</p></div><div class="learn-bridge-actions"><a class="btn btn-primary" href="/one-extra-mortgage-payment-a-year.html">Read the guide</a><a class="text-btn learn-browse-link" href="/learn.html#home-loans">Browse Home Loan &amp; Mortgage guides</a></div></div></div></section>
+
     <section class="planner-shell" id="planner">
       <div class="container planner-layout">
         <div class="planner-card">
@@ -163,6 +166,7 @@
             <button class="btn btn-secondary" id="csvBtn" type="button">Download CSV</button>
             <span id="reportDownloadStatus" class="action-status" aria-live="polite"></span>
           </section>
+          <section class="summary-card result-learn-card" aria-labelledby="resultLearnTitle"><span class="result-kicker">UNDERSTAND THE RESULT</span><strong id="resultLearnTitle">Why can one extra payment change a long loan?</strong><p id="resultLearnText">See how reducing principal earlier changes later interest before you decide what cadence fits your cash flow.</p><a id="resultLearnLink" href="/one-extra-mortgage-payment-a-year.html">Read the related guide →</a></section>
         </aside>
       </div>
     </section>
@@ -206,8 +210,7 @@
         <details><summary>Is it better to reduce the payment or shorten the loan term after a lump sum?</summary><p>Carrowmont shows both mathematical outcomes. Keeping the regular payment generally shortens the modelled term; lowering the payment keeps the original payoff horizon in the illustration. Your lender may not automatically recast the loan.</p></details>
         <details><summary>What is the difference between current balance and payoff amount?</summary><p>A lender payoff amount can include accrued interest and contract-specific administration, discharge or early-repayment charges. Carrowmont does not invent those amounts.</p></details>
         <details><summary>Can my lender charge a prepayment or early repayment fee?</summary><p>Possibly. Rules depend on country, loan type and contract. Enter any charge you already know and confirm the final amount with your lender.</p></details>
-        <details><summary>What does home-loan foreclosure mean in India?</summary><p>In Indian lending usage, foreclosure or pre-closure can refer to voluntarily repaying the outstanding home loan in full before the scheduled end. This differs from the common US meaning of foreclosure after default.</p></details>
-        <details><summary>What is mortgage overpayment in the UK?</summary><p>An overpayment is an amount paid above the contractual mortgage payment. Some products limit penalty-free overpayments or apply an Early Repayment Charge, so check your lender terms.</p></details>
+        <details id="countryFaqItem"><summary id="countryFaqQuestion">What lender rules should I check before making extra repayments?</summary><p id="countryFaqAnswer">Check whether extra principal is allowed, whether limits or charges apply, how the lender applies the payment and how an official payoff amount is calculated.</p></details>
         <details><summary>How does a target payoff calculator work?</summary><p>It calculates the repayment required to amortize the modeled balance over the shorter target horizon, then verifies the result with the same period-by-period ledger.</p></details>
         <details><summary>Does Carrowmont assume interest rates stay unchanged?</summary><p>Yes in V1. Enter the rate you want to model. Variable-rate changes and future fixed-rate renewals are outside this first version.</p></details>
         <details><summary>Can I compare prepaying with investing?</summary><p>Not in this calculator. That decision requires investment-return, risk, tax and liquidity assumptions and is better treated as a separate future tool.</p></details>
