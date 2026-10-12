@@ -3,6 +3,7 @@
   const C=window.CarrowmontMortgageCore;
   const L=window.CarrowmontLocale;
   const S=window.CarrowmontPlanState;
+  const D=window.CarrowmontMortgageDecisionProfile;
   const $=id=>document.getElementById(id);
   const qsa=s=>[...document.querySelectorAll(s)];
   let mode='recurring', planningView='monthly', lastResult=null, userTouched=false;
@@ -185,6 +186,19 @@
     if(!lastResult?.ok)return; try{els.reportStatus.textContent='Generating report...'; await window.CarrowmontMortgagePdfRenderer.generate({input:readInput(),result:lastResult,identity:regionIdentity(),planningView}); els.reportStatus.textContent='Report has been downloaded.';}catch(err){console.error(err);els.reportStatus.textContent='Could not generate the report.';}
   }
 
+  function decisionProfileFromResult(){
+    if(!lastResult?.ok||!D)return null;
+    const input=readInput();
+    return {country:L.getRegion(),currency:L.getCurrency(),balance:input.balance,annualRatePct:input.annualRatePct,remainingYears:input.remainingYears,remainingMonths:input.remainingMonths,paymentFrequency:input.paymentFrequency,useCurrentPayment:input.useCurrentPayment,currentPayment:input.useCurrentPayment?input.currentPayment:null};
+  }
+  function continueToPrepayVsInvest(){
+    const profile=decisionProfileFromResult();
+    if(!profile){els.reportStatus.textContent='Review the loan assumptions before continuing.';return;}
+    const saved=D.write(profile);
+    if(!saved.ok){els.reportStatus.textContent='Could not stage the loan details in this browser.';return;}
+    window.location.href='prepayment-vs-investing.html';
+  }
+
   function reset(){
     const region=L.getRegion(); const india=region==='IN'; els.balance.value=india?'5000000':'400000'; els.annualRate.value=india?'8.50':'6.00'; els.remainingYears.value='15';els.remainingMonths.value='0';els.paymentFrequency.value='monthly';els.useCurrentPayment.checked=false;els.currentPayment.value='0'; mode='recurring';planningView='monthly';els.recurringEnabled.checked=false;els.recurringExtra.value='0';els.extraFrequency.value='';els.extraStartPeriod.value='1';els.customIntervalMonths.value='3';els.optionalLumpSum.value='0';els.optionalLumpSumPeriod.value='1';els.lumpSumAmount.value=india?'500000':'25000';els.lumpSumPeriod.value='1';els.lumpStrategy.value='finish-sooner';els.targetYears.value='10';els.targetMonths.value='0';els.targetLumpSum.value='0';els.prepaymentCharge.value='0';els.otherCharges.value='0';els.payFrequency.value=countryDefaultPay();userTouched=false;render();
   }
@@ -194,7 +208,7 @@
     document.querySelector('.planner-card').addEventListener('input',e=>{if(e.target.matches('input,select'))userTouched=true;render();}); document.querySelector('.planner-card').addEventListener('change',e=>{if(e.target.matches('input,select'))userTouched=true;render();});
     els.regionSelect.addEventListener('change',()=>{L.setRegion(els.regionSelect.value); if(!userTouched) els.payFrequency.value=countryDefaultPay();}); els.currencySelect.addEventListener('change',()=>L.setCurrency(els.currencySelect.value));
     $('localeDone').addEventListener('click',()=>{els.localeMenu.open=false;}); window.addEventListener('carrowmont:localechange',()=>{syncLocaleUi();render();});
-    $('resetBtn').addEventListener('click',reset); $('copyBtn').addEventListener('click',copySummary); $('csvBtn').addEventListener('click',downloadCsv); $('reportBtn').addEventListener('click',generateReport); $('clearSharedBtn').addEventListener('click',()=>{S?.clear();els.reportStatus.textContent='Shared Carrowmont plan values cleared from this browser.';});
+    $('resetBtn').addEventListener('click',reset); $('copyBtn').addEventListener('click',copySummary); $('csvBtn').addEventListener('click',downloadCsv); $('reportBtn').addEventListener('click',generateReport); $('compareInvestBtn').addEventListener('click',continueToPrepayVsInvest); $('clearSharedBtn').addEventListener('click',()=>{S?.clear();els.reportStatus.textContent='Shared Carrowmont plan values cleared from this browser.';});
   }
 
   populateLocale(); syncLocaleUi(); els.payFrequency.value=countryDefaultPay(); bind(); render();
