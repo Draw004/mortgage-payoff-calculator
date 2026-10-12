@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mortgage Decision Centre - Prepay, Refinance &amp; Rate Stress | Carrowmont</title>
+  <meta name="description" content="Compare the next mortgage decisions after a payoff calculation: prepay versus invest, refinance break-even and payment stress from higher rates." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://carrowmont.com/mortgage-payoff-calculator/decision-centre.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="decision-centre.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-cluster"><a class="brand carrowmont-brand" href="/" aria-label="Carrowmont home"><span class="brand-wordmark">CARROWMONT</span></a><span class="brand-divider" aria-hidden="true"></span><a class="product-label" id="productLabel" href="/mortgage-payoff-calculator/decision-centre.html">Mortgage Decision Centre</a></div>
+      <div class="header-actions">
+        <nav class="top-nav" aria-label="Primary navigation"><a href="/mortgage-payoff-calculator/">Payoff Calculator</a><a href="#decisions">Decisions</a><a href="/learn.html#home-loans">Learn</a><a href="/tools.html">All tools</a><a href="/">Home</a></nav>
+        <details class="locale-menu" id="localeMenu"><summary id="localeSummary" aria-label="Choose country and currency"><span class="locale-globe" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3z"/></svg></span><span id="localeCurrent">India · INR</span><span class="locale-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary><div class="locale-popover"><h3>Country &amp; currency</h3><p>Choose the context that makes the numbers easiest to understand.</p><label>Country / region<select id="regionSelect"></select></label><label>Currency<select id="currencySelect"></select></label><div class="locale-note"><strong>Important:</strong> country changes familiar wording; currency changes display only. Carrowmont does not perform FX conversion.</div><button class="btn btn-primary btn-small" id="localeDone" type="button">Done</button></div></details>
+        <details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><div class="mobile-nav-links"><a href="/">Carrowmont home</a><a href="/tools.html">All tools</a><a href="/mortgage-payoff-calculator/">Payoff Calculator</a><a href="#decisions">Decisions</a><a href="/learn.html#home-loans">Learn</a><a href="/methodology.html">Methodology</a></div></details>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="decision-hero">
+      <div class="container">
+        <div class="family-breadcrumb"><a href="/mortgage-payoff-calculator/">Mortgage / Home Loan Payoff</a><span>›</span>Decision Centre</div>
+        <div class="hero-inner">
+          <div><p class="eyebrow">MORTGAGE DECISION CENTRE</p><h1>What are you trying to decide?</h1><p class="hero-copy">Start with the decision in front of you. Carrowmont keeps the payoff calculator focused, then gives each follow-on question its own transparent model.</p><div class="chips" style="margin-top:16px"><span>No login</span><span>Local calculations</span><span>Country-aware terminology</span><span>No lender or investment recommendations</span></div></div>
+          <aside class="decision-question-card"><span class="result-kicker">ONE MORTGAGE · DIFFERENT DECISIONS</span><strong id="hubIdentity">Mortgage / Home Loan decisions</strong><p>Use the same core loan facts where useful, but review and apply saved details explicitly. Decision-specific assumptions never transfer silently.</p></aside>
+        </div>
+        <div class="profile-banner" id="profileBanner" hidden><div><strong>Saved mortgage details are available in this browser.</strong><p id="profileSummary">You can review them when you open a live decision tool.</p></div><div class="profile-banner-actions"><a class="btn btn-secondary btn-small" href="prepayment-vs-investing.html">Open Prepay vs Invest</a><button class="btn btn-secondary btn-small" id="clearProfileBtn" type="button">Clear saved details</button></div></div>
+      </div>
+    </section>
+
+    <section class="decision-grid-section" id="decisions">
+      <div class="container">
+        <div class="section-title"><p class="eyebrow">CHOOSE A DECISION</p><h2>Keep each question mathematically separate.</h2><p>The same mortgage can raise different questions. Each module uses only the assumptions needed for that decision.</p></div>
+        <div class="decision-grid">
+          <article class="decision-card"><span class="decision-status">Live</span><h2 id="payoffCardTitle">Payoff / Prepayment</h2><p>How much time and interest can extra payments save?</p><a class="decision-link" href="/mortgage-payoff-calculator/">Open payoff calculator →</a></article>
+          <article class="decision-card"><span class="decision-status">Live</span><h2 id="investCardTitle">Prepay vs Invest</h2><p>Should I use this extra money against the loan or invest it?</p><a class="decision-link" href="prepayment-vs-investing.html">Compare prepayment and investing →</a></article>
+          <article class="decision-card planned"><span class="decision-status">Coming next</span><h2 id="refiCardTitle">Refinance / Transfer</h2><p>Does the lower rate still save money after fees and term changes?</p><span class="planned-note">Planned for MDC1B. No placeholder calculator is published.</span></article>
+          <article class="decision-card planned"><span class="decision-status">Coming next</span><h2>Rate Shock / Budget</h2><p>What happens to my payment and household buffer if the rate rises?</p><span class="planned-note">Planned for MDC1C. No placeholder calculator is published.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="decision-principles"><div class="container"><div class="section-title"><p class="eyebrow">HOW CARROWMONT HANDLES THE JOURNEY</p><h2>Reuse facts, not conclusions.</h2></div><div class="principle-grid"><div class="principle-card"><strong>Mortgage facts can be reused</strong><p>Balance, rate, remaining term and repayment cadence can be saved locally after validation.</p></div><div class="principle-card"><strong>Decision assumptions stay separate</strong><p>Investment return, fees and extra-money plans are specific to the decision and are not shared silently.</p></div><div class="principle-card"><strong>You remain in control</strong><p>Saved mortgage details are never applied automatically. You can use them, start fresh or clear them.</p></div></div></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand-block"><a class="footer-wordmark" href="/">CARROWMONT</a><strong class="footer-product-name">Mortgage Decision Centre</strong><p>Move from a mortgage payoff calculation to the next decision without mixing the maths.</p><span class="footer-small">Educational planning tools · Carrowmont</span></div><div class="footer-col"><strong>Tools</strong><a href="/mortgage-payoff-calculator/">Mortgage / Home Loan Payoff</a><a href="prepayment-vs-investing.html">Prepayment vs Investing</a><a href="/tools.html">All tools</a></div><div class="footer-col"><strong>Carrowmont</strong><a href="/learn.html#home-loans">Mortgage Learn</a><a href="/methodology.html">Methodology</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></div><div class="footer-col"><strong>Legal</strong><a href="/disclaimer.html">Disclaimer</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div></div><div class="container footer-bottom"><span>&copy; 2026 Carrowmont · Mortgage Decision Centre</span><span>Illustrative estimates, not financial advice.</span></div></footer>
+
+  <script src="locale.js"></script>
+  <script src="mortgage-decision-profile.js"></script>
+  <script src="decision-centre.js"></script>
+  <script src="analytics.js" data-carrowmont-tool="mortgage-decision-centre"></script>
+</body>
+</html>

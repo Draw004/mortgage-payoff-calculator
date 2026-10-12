@@ -167,6 +167,7 @@
             <span id="reportDownloadStatus" class="action-status" aria-live="polite"></span>
           </section>
           <section class="summary-card result-learn-card" aria-labelledby="resultLearnTitle"><span class="result-kicker">UNDERSTAND THE RESULT</span><strong id="resultLearnTitle">Why can one extra payment change a long loan?</strong><p id="resultLearnText">See how reducing principal earlier changes later interest before you decide what cadence fits your cash flow.</p><a id="resultLearnLink" href="/one-extra-mortgage-payment-a-year.html">Read the related guide →</a></section>
+          <section class="summary-card decision-centre-cta-card" aria-labelledby="decisionCentreCtaTitle"><span class="result-kicker">NEXT MORTGAGE DECISION</span><strong id="decisionCentreCtaTitle">Have extra money available? Compare prepayment vs investing.</strong><p>The companion decision tool uses equal planned cash and the original mortgage payoff date so an earlier payoff does not receive a hidden advantage.</p><button class="btn btn-primary" id="compareInvestBtn" type="button">Compare Prepayment vs Investing</button><a class="decision-centre-link" href="decision-centre.html">Open Mortgage Decision Centre →</a></section>
         </aside>
       </div>
     </section>
@@ -213,7 +214,7 @@
         <details id="countryFaqItem"><summary id="countryFaqQuestion">What lender rules should I check before making extra repayments?</summary><p id="countryFaqAnswer">Check whether extra principal is allowed, whether limits or charges apply, how the lender applies the payment and how an official payoff amount is calculated.</p></details>
         <details><summary>How does a target payoff calculator work?</summary><p>It calculates the repayment required to amortize the modeled balance over the shorter target horizon, then verifies the result with the same period-by-period ledger.</p></details>
         <details><summary>Does Carrowmont assume interest rates stay unchanged?</summary><p>Yes in V1. Enter the rate you want to model. Variable-rate changes and future fixed-rate renewals are outside this first version.</p></details>
-        <details><summary>Can I compare prepaying with investing?</summary><p>Not in this calculator. That decision requires investment-return, risk, tax and liquidity assumptions and is better treated as a separate future tool.</p></details>
+        <details><summary>Can I compare prepaying with investing?</summary><p>Yes. Keep this payoff calculator focused on loan mechanics, then use Carrowmont's <a href="prepayment-vs-investing.html">Prepayment vs Investing decision tool</a> for an equal-cash-flow, common-horizon comparison and modeled break-even investment return.</p></details>
         <details><summary>Why might my lender's result differ from Carrowmont?</summary><p>Lenders may calculate interest daily, use different compounding conventions, apply fees, use settlement dates, round payments, or impose product-specific prepayment rules. Treat Carrowmont as an educational planning estimate.</p></details>
       </div></div>
     </section>
@@ -232,6 +233,7 @@
   <script src="locale.js"></script>
   <script src="shared-plan-state.js" data-carrowmont-tool="mortgage-payoff-calculator"></script>
   <script src="core.js"></script>
+  <script src="mortgage-decision-profile.js"></script>
   <script src="pdf-export.js"></script>
   <script src="report-standard.js"></script>
   <script src="mortgage-payoff-pdf-renderer.js"></script>
