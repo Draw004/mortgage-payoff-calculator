@@ -203,6 +203,80 @@
     return currencies[code]?.symbol || code;
   }
 
+  function getMortgageTerms(region = regionCode) {
+    const homeLoanMarket = ['IN', 'AU', 'NZ'].includes(region);
+    const mortgageMarket = ['US', 'CA', 'GB', 'IE'].includes(region);
+    const noun = homeLoanMarket ? 'home loan' : mortgageMarket ? 'mortgage' : 'mortgage / home loan';
+    const nounCap = homeLoanMarket ? 'Home loan' : mortgageMarket ? 'Mortgage' : 'Mortgage / home loan';
+    const familyName = homeLoanMarket ? 'Home Loan Decision Centre' : mortgageMarket ? 'Mortgage Decision Centre' : 'Mortgage / Home Loan Decision Centre';
+    const familyEyebrow = homeLoanMarket ? 'HOME LOAN DECISION CENTRE' : mortgageMarket ? 'MORTGAGE DECISION CENTRE' : 'MORTGAGE / HOME LOAN DECISION CENTRE';
+    const familyJourney = homeLoanMarket ? 'CONTINUE THE HOME LOAN JOURNEY' : mortgageMarket ? 'CONTINUE THE MORTGAGE JOURNEY' : 'CONTINUE THE LOAN JOURNEY';
+    const nextDecision = homeLoanMarket ? 'NEXT HOME LOAN DECISION' : mortgageMarket ? 'NEXT MORTGAGE DECISION' : 'NEXT LOAN DECISION';
+    const oneLoan = homeLoanMarket ? 'ONE HOME LOAN · DIFFERENT DECISIONS' : mortgageMarket ? 'ONE MORTGAGE · DIFFERENT DECISIONS' : 'ONE LOAN · DIFFERENT DECISIONS';
+    const learnLabel = homeLoanMarket ? 'Home Loan Guides' : mortgageMarket ? 'Mortgage Guides' : 'Mortgage & Home Loan Guides';
+    const toolsLabel = homeLoanMarket ? 'Home Loan tools' : mortgageMarket ? 'Mortgage tools' : 'Mortgage / Home Loan tools';
+    const payoffFamilyLabel = homeLoanMarket ? 'Home Loan Payoff / Prepayment' : mortgageMarket ? 'Mortgage Payoff / Prepayment' : 'Mortgage / Home Loan Payoff';
+    const detailsLabel = homeLoanMarket ? 'home loan details' : mortgageMarket ? 'mortgage details' : 'loan details';
+    const factsLabel = homeLoanMarket ? 'Home loan facts' : mortgageMarket ? 'Mortgage facts' : 'Loan facts';
+    const paymentLabel = homeLoanMarket ? 'home loan payment' : mortgageMarket ? 'mortgage payment' : 'loan payment';
+    return {
+      noun, nounCap, familyName, familyEyebrow, familyJourney, nextDecision, oneLoan, learnLabel, toolsLabel, payoffFamilyLabel, detailsLabel, factsLabel, paymentLabel,
+      hubSavedDetails: `Saved ${detailsLabel} are available in this browser.`,
+      hubSameLoan: `The same ${noun} can raise different questions. Each module uses only the assumptions needed for that decision.`,
+      hubFactsReuse: `${factsLabel} can be reused`,
+      hubSavedControl: `Saved ${detailsLabel} are never applied automatically. You can use them, start fresh or clear them.`,
+      hubFooterDescription: `Move from a ${noun} payoff calculation to the next decision without mixing the calculations.`,
+      payoffLearnIntro: homeLoanMarket ? 'New to home-loan extra repayments or prepayments? Start with the mechanics, then come back and test your own balance, rate and term.' : mortgageMarket ? 'New to mortgage prepayments or extra principal payments? Start with the mechanics, then come back and test your own balance, rate and term.' : 'New to mortgage or home-loan prepayments? Start with the mechanics, then come back and test your own balance, rate and term.',
+      payoffDecisionCopy: `The companion decision tool uses equal planned cash and the original ${noun} payoff date so an earlier payoff does not receive a hidden advantage.`,
+      payoffDecisionLink: `Open ${familyName} →`,
+      payoffExtraFaq: `Does making extra ${noun} payments reduce interest?`,
+      payoffFooterDescription: `Explore how extra principal, prepayments or an earlier payoff target could change your ${noun}.`,
+      prepayHeroCopy: `Use the same planned cash and the same original ${noun} payoff date to compare both paths fairly. The result shows the modeled investment return at which the paths finish approximately equal.`,
+      prepayPrivacy: `${factsLabel} can be saved in this browser for this Decision Centre only. Investment-return assumptions, charges and comparison results are not saved with those loan details.`,
+      profileFromAnotherStep: `Loan details are available from another ${familyName} step.`,
+      loanDetailsHeading: `1. ${nounCap} details`,
+      commonDetailsCopy: `Choose how you want to use the extra money. Switching between options keeps the same ${detailsLabel}.`,
+      uncertaintyCopy: `${nounCap} interest avoided is comparatively predictable once the loan terms and charges are correct. Investment returns are uncertain and can be lower, higher or negative.`,
+      saveDecisionDetails: `Save ${nounCap} Details for Decision Centre`,
+      clearSavedDetails: `Clear saved ${detailsLabel}`,
+      behaviorHeader: `${nounCap} behavior`,
+      prepayBehavior: `Extra cash reduces principal; the ${noun} may finish early.`,
+      investBehavior: `Original ${noun} schedule continues.`,
+      commonHorizonHeading: `Equal cash flow. One original ${noun} horizon.`,
+      methodBuildSchedule: `Build the original ${noun} schedule from the balance, rate, remaining term and how often you make the regular payment.`,
+      methodInvestSchedule: `In the Invest path, keep the original ${noun} schedule and invest the same planned extra cash instead.`,
+      methodCompareHorizon: `Compare both options at the original scheduled ${noun} payoff date and find the annual investment return where they finish about the same.`,
+      prepayFooterDescription: `Compare the same planned cash across prepayment and investing while accounting for an earlier ${noun} payoff.`,
+      refiPrivacy: `Only reusable ${factsLabel.toLowerCase()} may be saved in this browser for the Decision Centre. Offer rates, switching fees, cashback, holding periods and results are not saved with those loan details.`,
+      currentLoanHeading: `1. Current ${noun}`,
+      stressLocaleCopy: `Choose familiar ${noun} wording and number formatting.`,
+      stressPrivacy: `Only reusable current-loan facts can be saved in this browser for the ${familyName}. Future rates, reset timing, household income, expenses, money left over and results are not saved with those loan details.`,
+      stressSavedDetails: `Saved ${detailsLabel} are available in this browser.`,
+      stressCurrentHeading: `1. Your current ${noun}`,
+      stressBudgetIntro: `The payment stress test works without household figures. Turn this on only if you want to see the monthly amount left after the ${noun} and the essential expenses you enter.`,
+      stressExpensesLabel: `Monthly essential expenses excluding this ${noun}`,
+      stressExpensesNote: `Income and essential expenses excluding the ${noun} are held constant. Carrowmont does not forecast wages, inflation or future household costs.`,
+      stressShareLabel: `Stressed ${noun} share`,
+      stressPaymentLegend: `${nounCap} payment`,
+      stressAvailableLegend: `Available for ${noun}`,
+      stressPayoffLink: `Use the ${payoffFamilyLabel} Calculator.`,
+      stressDecisionDescription: `Return to all four live ${homeLoanMarket ? 'home loan' : mortgageMarket ? 'mortgage' : 'loan'} decisions.`,
+      stressFaqHeading: `Questions about ${noun} payment stress`,
+      prepayFreedCashFaq: `Why does the Prepay option start investing after the ${noun} is cleared?`,
+      prepayFreedCashAnswer: `Because the regular payment would otherwise have continued until the original payoff date. Redirecting that freed-up cash keeps the same planned cash flow for both options until that date.`,
+      zeroBufferExplanation: `No. It is only the rate at which the take-home income and essential expenses you entered leave exactly enough for the ${paymentLabel}, converted to a monthly amount. It is not a lender rule or a recommendation.`
+    };
+  }
+
+  function applyMortgageCopy(root = document) {
+    if (!root?.querySelectorAll) return;
+    const terms = getMortgageTerms();
+    root.querySelectorAll('[data-mortgage-copy]').forEach((el) => {
+      const key = el.getAttribute('data-mortgage-copy');
+      if (key && Object.prototype.hasOwnProperty.call(terms, key)) el.textContent = terms[key];
+    });
+  }
+
   window.CarrowmontLocale = {
     regions,
     currencies,
@@ -216,6 +290,8 @@
     formatMoney,
     formatCompactMoney,
     formatNumber,
-    currencySymbol
+    currencySymbol,
+    getMortgageTerms,
+    applyMortgageCopy
   };
 })();

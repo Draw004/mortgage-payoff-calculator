@@ -3,6 +3,7 @@
   const P=()=>window.CarrowmontPdfExport;
   const RS=()=>window.CarrowmontReportStandard;
   const L=()=>window.CarrowmontLocale;
+  const T=()=>L().getMortgageTerms?.()||{noun:'mortgage',nounCap:'Mortgage',familyName:'Mortgage Decision Centre'};
   const M=()=>window.CarrowmontMortgageCore;
   const W=794,H=1123,MG=42,CW=W-MG*2;
   const C={ink:'#102945',teal:'#0e827a',tealDark:'#08736c',muted:'#4b637b',line:'#c9d9e2',pale:'#e8f6f3',light:'#f7fafb',amber:'#fff7e8',red:'#fff1ef',white:'#ffffff'};
@@ -13,7 +14,7 @@
   function duration(periods,freq){return M().durationLabel(Math.max(0,Number(periods)||0),freq);}
   function dateLabel(iso){if(!iso)return '—';const d=new Date(`${iso}T00:00:00Z`);try{return new Intl.DateTimeFormat(L().getLocale(),{year:'numeric',month:'short',day:'numeric',timeZone:'UTC'}).format(d);}catch(_){return iso;}}
   function header(ctx,title,subtitle){P().text(ctx,'CARROWMONT',MG,54,{size:15,weight:900,color:C.teal});P().text(ctx,title,MG,94,{size:25,weight:900,color:C.ink});P().wrappedText(ctx,subtitle,MG,119,CW,{size:9.4,lineHeight:13,weight:550,color:C.muted,maxLines:2});P().line(ctx,MG,145,W-MG,145,C.line,1);}
-  function footer(ctx,text='Carrowmont · Mortgage Decision Centre · Educational planning report'){P().line(ctx,MG,H-48,W-MG,H-48,C.line,1);P().text(ctx,text,MG,H-27,{size:7.8,weight:650,color:C.muted});P().text(ctx,'carrowmont.com',W-MG,H-27,{size:7.8,weight:650,color:C.muted,align:'right'});}
+  function footer(ctx,text=`Carrowmont · ${T().familyName} · Educational planning report`){P().line(ctx,MG,H-48,W-MG,H-48,C.line,1);P().text(ctx,text,MG,H-27,{size:7.8,weight:650,color:C.muted});P().text(ctx,'carrowmont.com',W-MG,H-27,{size:7.8,weight:650,color:C.muted,align:'right'});}
   function metric(ctx,x,y,w,label,value,note,fill=C.white){card(ctx,x,y,w,104,fill,C.line);P().text(ctx,label.toUpperCase(),x+14,y+22,{size:8.1,weight:900,color:C.muted});P().wrappedText(ctx,value,x+14,y+50,w-28,{size:17.5,lineHeight:20,weight:900,color:C.ink,maxLines:2});if(note)P().wrappedText(ctx,note,x+14,y+80,w-28,{size:7.8,lineHeight:10.4,weight:550,color:C.muted,maxLines:2});}
   function row(ctx,y,label,value,alt=false){if(alt){ctx.fillStyle='#fbfdfe';ctx.fillRect(MG,y,CW,34);}P().text(ctx,label,MG+9,y+21,{size:8.4,weight:750,color:C.muted});P().text(ctx,value,W-MG-9,y+21,{size:8.7,weight:850,color:C.ink,align:'right'});P().line(ctx,MG,y+34,W-MG,y+34,C.line,1);return y+34;}
   function breakEvenLabel(r){const c=r.comparison;if(c.durableBreakEvenPeriod===0)return 'Immediate / at completion';if(c.durableBreakEvenPeriod==null)return 'No durable break-even';return r.input.paymentFrequency==='monthly'?`${c.durableBreakEvenMonths} months`:`About ${c.durableBreakEvenMonths} months`;}
@@ -49,7 +50,7 @@
   function guidePage(model){
     const r=model.result,i=r.input,c=r.comparison;
     return RS().guidePage({
-      reportTitle:`${model.identity.product} Decision Report`,preparedFrom:`Prepared from Carrowmont Mortgage Decision Centre · ${model.identity.product}`,
+      reportTitle:`${model.identity.product} Decision Report`,preparedFrom:`Prepared from Carrowmont ${T().familyName} · ${model.identity.product}`,
       howToRead:'Start with durable break-even, then compare the three repayment figures. The same-term new-rate payment isolates the rate effect; the proposed payment also reflects the entered term and any financed switching fees. Review the holding-period and lifetime results separately.',
       methodology:[
         {label:'Borrowing-cost comparison',body:'At each modeled repayment period, current-loan cumulative interest is compared with proposed-loan cumulative interest plus switching fees, exit charge and cashback. Principal repayment is not mislabeled as a cost.'},
@@ -60,12 +61,12 @@
       terminology:[
         {label:'Same-term rate-only payment',body:'New offered rate applied to the current balance and current remaining term. Switching fees are intentionally excluded from this isolation figure.'},
         {label:'Proposed refinance payment',body:'New offered rate applied to the proposed new term and to the current balance plus any financed switching fees.'},
-        {label:'Learn guide',body:'When Does Mortgage Refinancing Break Even? · carrowmont.com/mortgage-refinance-break-even.html'},
-        {label:'Decision Centre',body:'Continue the mortgage journey at carrowmont.com/mortgage-payoff-calculator/decision-centre.html'}
+        {label:'Learn guide',body:`When does ${T().noun} refinancing or switching break even? · carrowmont.com/mortgage-refinance-break-even.html`},
+        {label:'Decision Centre',body:`Continue the ${T().noun} journey at carrowmont.com/mortgage-payoff-calculator/decision-centre.html`}
       ],
       assumptions:`Current and proposed rates are held constant. One repayment frequency is used for both loans. Carrowmont does not automatically model country-specific penalties, taxes, legal settlement rules, APR/APRC normalization, variable-rate paths, property values, sale costs or a future replacement loan.`,
       disclaimer:'This report is educational planning software, not individualized lending, financial, tax or legal advice. It does not rank lenders, determine eligibility or guarantee savings. Confirm actual charges, incentive conditions and lender rules from authoritative documents.',
-      methodologyMeta:'Mortgage Decision Centre MDC1B methodology v1.0.0',methodologyUrl:'carrowmont.com/mortgage-payoff-calculator/refinance-break-even.html#methodology'
+      methodologyMeta:`${T().familyName} MDC1B methodology v1.0.0`,methodologyUrl:'carrowmont.com/mortgage-payoff-calculator/refinance-break-even.html#methodology'
     });
   }
 

@@ -165,3 +165,4 @@
 .decision-centre-cta-card .btn{width:100%;margin-bottom:8px}
 .decision-centre-link{display:block;text-align:center;color:#08756d;font-weight:900;text-decoration:none;font-size:13px}
 .decision-centre-link:hover{text-decoration:underline}
+.shared-plan-status{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.45;max-width:620px}

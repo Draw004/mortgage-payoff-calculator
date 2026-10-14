@@ -51,7 +51,7 @@
     els.regionSelect.value=L.getRegion();els.currencySelect.value=L.getCurrency();els.localeCurrent.textContent=`${L.getProfile().label} · ${L.getCurrency()}`;
     const id=identity(); $('productLabel').textContent=id.product;$('toolTitle').textContent=id.title;$('balanceLabel').textContent=id.balance;$('termLabel').textContent=id.term;$('currentPaymentLabel').textContent=id.currentPayment;$('footerProductName').textContent=id.product;$('footerProductBottom').textContent=id.product;
     $('biweeklyOption').textContent=twoWeekLabel();
-    const symbol=L.currencySymbol();qsa('.currency-prefix').forEach(el=>{el.textContent=symbol;});
+    const symbol=L.currencySymbol();qsa('.currency-prefix').forEach(el=>{el.textContent=symbol;});L.applyMortgageCopy?.();
     updateRateDeltaHelp();
   }
 
@@ -99,8 +99,8 @@
     $('bufferTodayResult').textContent=money(r.budget.bufferToday,0);$('bufferStressResult').textContent=money(r.budget.customBuffer,0);$('mortgageShareResult').textContent=pct(r.budget.stressedMortgageSharePct,1);
     const status=r.budget.zeroBufferStatus;
     if(status==='found'){$('zeroBufferRateResult').textContent=pct(r.budget.zeroBufferRatePct,2);$('zeroBufferNote').textContent='This is the modeled rate where the entered monthly household buffer reaches approximately zero. It is not a recommended maximum or lender affordability result.';}
-    else if(status==='non-mortgage-outgoings-use-all-income'){$('zeroBufferRateResult').textContent='Not applicable';$('zeroBufferNote').textContent='The entered essential non-mortgage outgoings already use all or more of the entered take-home income before this mortgage.';}
-    else if(status==='no-nonnegative-rate'){$('zeroBufferRateResult').textContent='No non-negative rate';$('zeroBufferNote').textContent='Even a 0% modeled mortgage payment is greater than the monthly amount left after the entered essential outgoings.';}
+    else if(status==='non-mortgage-outgoings-use-all-income'){$('zeroBufferRateResult').textContent='Not applicable';$('zeroBufferNote').textContent=`The entered essential expenses already use all or more of the entered take-home income before this ${family().noun}.`;}
+    else if(status==='no-nonnegative-rate'){$('zeroBufferRateResult').textContent='No non-negative rate';$('zeroBufferNote').textContent=`Even a 0% modeled ${family().paymentLabel} is greater than the monthly amount left after the entered essential expenses.`;}
     else if(status==='above-modeled-ceiling'){$('zeroBufferRateResult').textContent='Above 50% ceiling';$('zeroBufferNote').textContent='The mathematical crossover is above the V1 modeled rate ceiling. No value is extrapolated beyond 50%.';}
     else {$('zeroBufferRateResult').textContent='—';$('zeroBufferNote').textContent='A mathematical crossover is shown only when the entered budget supports one inside the modeled range.';}
   }
@@ -134,7 +134,7 @@
     const x=v=>m.l+(v-minRate)/(maxRate-minRate)*innerW; const y=v=>m.t+(maxPay-v)/(maxPay-minPay)*innerH;
     for(let i=0;i<=4;i++){const yy=m.t+i*innerH/4;svg.appendChild(svgEl('line',{x1:m.l,y1:yy,x2:W-m.r,y2:yy,class:'stress-chart-grid'}));const val=maxPay-i*(maxPay-minPay)/4;const t=svgEl('text',{x:m.l-9,y:yy+4,'text-anchor':'end',class:'stress-chart-label'});t.textContent=money(val,0);svg.appendChild(t);}
     svg.appendChild(svgEl('line',{x1:m.l,y1:m.t,x2:m.l,y2:H-m.b,class:'stress-chart-axis'}));svg.appendChild(svgEl('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,class:'stress-chart-axis'}));
-    if(budgetLine!=null&&budgetLine>=minPay&&budgetLine<=maxPay){const yy=y(budgetLine);svg.appendChild(svgEl('line',{x1:m.l,y1:yy,x2:W-m.r,y2:yy,class:'stress-chart-budget'}));const tx=svgEl('text',{x:W-m.r,y:yy-7,'text-anchor':'end',class:'stress-chart-label strong'});tx.textContent='Available for mortgage';svg.appendChild(tx);}
+    if(budgetLine!=null&&budgetLine>=minPay&&budgetLine<=maxPay){const yy=y(budgetLine);svg.appendChild(svgEl('line',{x1:m.l,y1:yy,x2:W-m.r,y2:yy,class:'stress-chart-budget'}));const tx=svgEl('text',{x:W-m.r,y:yy-7,'text-anchor':'end',class:'stress-chart-label strong'});tx.textContent=`Available for ${family().noun}`;svg.appendChild(tx);}
     let d='';pts.forEach((p,i)=>{d+=`${i?'L':'M'} ${x(p.rate).toFixed(1)} ${y(p.payment).toFixed(1)} `;});svg.appendChild(svgEl('path',{d,class:'stress-chart-path'}));
     pts.forEach(p=>{const cx=x(p.rate),cy=y(p.payment);svg.appendChild(svgEl('circle',{cx,cy,r:p.kind==='custom'?5:4,class:`stress-chart-point${p.kind==='custom'?' custom':''}`}));const tx=svgEl('text',{x:cx,y:H-m.b+22,'text-anchor':'middle',class:p.kind==='custom'?'stress-chart-label strong':'stress-chart-label'});tx.textContent=`${p.rate.toFixed(2)}%`;svg.appendChild(tx);});
     $('chartSummary').textContent=r.budget.applicable?`The custom ${pct(customRate)} scenario gives a monthly-equivalent payment of ${money(r.customScenario.monthlyEquivalent,0)}. The horizontal reference is the ${money(r.budget.availableForMortgage,0)} monthly amount left after entered essential outgoings.`:`The custom ${pct(customRate)} scenario gives a monthly-equivalent payment of ${money(r.customScenario.monthlyEquivalent,0)}. Standard points show +0.25, +0.50, +1, +2 and +3 percentage-point stresses where they remain inside the 50% ceiling.`;
@@ -142,7 +142,7 @@
 
   function renderResults(r){
     if(r.paidOffBeforeReset){
-      $('stressedPaymentResult').textContent=money(0,2);$('heroResultText').textContent='The modeled loan is repaid before the entered rate-change checkpoint, so no stressed mortgage payment applies.';
+      $('stressedPaymentResult').textContent=money(0,2);$('heroResultText').textContent=`The modeled loan is repaid before the entered rate-change checkpoint, so no stressed ${family().paymentLabel} applies.`;
     }else{
       $('stressedPaymentResult').textContent=money(r.customScenario.payment,2);
       const delta=r.customScenario.rateOnlyChange;const direction=Math.abs(delta)<=0.005?'about the same as':delta>0?'more than':'less than';
@@ -179,18 +179,18 @@
   }
 
   function applyProfile(){
-    const p=P.read();if(!p)return;els.balance.value=String(p.balance);els.currentRate.value=String(p.annualRatePct);els.remainingYears.value=String(p.remainingYears);els.remainingMonths.value=String(p.remainingMonths);els.paymentFrequency.value=p.paymentFrequency==='fortnightly'?'biweekly':p.paymentFrequency;els.useCurrentPayment.checked=Boolean(p.useCurrentPayment);if(p.useCurrentPayment)els.currentPayment.value=String(p.currentPayment);els.stressedRate.value=String(Math.min(50,p.annualRatePct+1).toFixed(2));profileDismissed=true;L.setLocale(p.country,p.currency);render();els.reportStatus.textContent=p.useCurrentPayment?'Saved mortgage details and the saved current-payment override were applied after validation. Stress rate, timing and household budget were not taken from the profile.':'Saved mortgage details applied after validation. Stress rate, timing and household budget remain decision-specific.';
+    const p=P.read();if(!p)return;els.balance.value=String(p.balance);els.currentRate.value=String(p.annualRatePct);els.remainingYears.value=String(p.remainingYears);els.remainingMonths.value=String(p.remainingMonths);els.paymentFrequency.value=p.paymentFrequency==='fortnightly'?'biweekly':p.paymentFrequency;els.useCurrentPayment.checked=Boolean(p.useCurrentPayment);if(p.useCurrentPayment)els.currentPayment.value=String(p.currentPayment);els.stressedRate.value=String(Math.min(50,p.annualRatePct+1).toFixed(2));profileDismissed=true;L.setLocale(p.country,p.currency);render();els.reportStatus.textContent=p.useCurrentPayment?`Saved ${family().detailsLabel} and the saved current-payment override were applied after validation. Stress rate, timing and household budget were not taken from the profile.`:`Saved ${family().detailsLabel} applied after validation. Stress rate, timing and household budget remain decision-specific.`;
   }
   function startFresh(){profileDismissed=true;refreshProfileBanner();reset();els.reportStatus.textContent='Started fresh. The saved profile remains available in this browser but was not applied.';}
-  function saveProfile(){const p=profileFromCurrent();if(!p){els.reportStatus.textContent='Enter valid current-loan details before saving.';return;}const res=P.write(p);els.reportStatus.textContent=res.ok?'Current mortgage details saved locally. Future rate, reset timing, income, expenses and results were not saved.':'Could not save mortgage details in this browser.';profileDismissed=false;refreshProfileBanner();}
-  function clearProfile(){P.clear();profileDismissed=false;refreshProfileBanner();els.reportStatus.textContent='Saved mortgage details cleared. Country/currency preferences were not changed.';}
+  function saveProfile(){const p=profileFromCurrent();if(!p){els.reportStatus.textContent='Enter valid current-loan details before saving.';return;}const res=P.write(p);els.reportStatus.textContent=res.ok?`Current ${family().detailsLabel} saved locally. Future rate, reset timing, income, expenses and results were not saved.`:'Could not save loan details in this browser.';profileDismissed=false;refreshProfileBanner();}
+  function clearProfile(){P.clear();profileDismissed=false;refreshProfileBanner();els.reportStatus.textContent=`Saved ${family().detailsLabel} cleared. Country/currency preferences were not changed.`;}
 
   function zeroBufferSummary(r){
     if(!r.budget.applicable)return 'Household budget context: not entered';
     if(r.budget.zeroBufferStatus==='found')return `Modeled zero-buffer rate: ${pct(r.budget.zeroBufferRatePct,2)}`;
     if(r.budget.zeroBufferStatus==='no-nonnegative-rate')return 'Modeled zero-buffer rate: no non-negative modeled rate leaves a positive buffer';
     if(r.budget.zeroBufferStatus==='above-modeled-ceiling')return 'Modeled zero-buffer rate: above 50% modeled ceiling';
-    if(r.budget.zeroBufferStatus==='non-mortgage-outgoings-use-all-income')return 'Modeled zero-buffer rate: not applicable because entered non-mortgage outgoings already use all or more of take-home income';
+    if(r.budget.zeroBufferStatus==='non-mortgage-outgoings-use-all-income')return `Modeled zero-buffer rate: not applicable because entered essential expenses excluding the ${family().noun} already use all or more of take-home income`;
     return 'Modeled zero-buffer rate: not applicable';
   }
 
@@ -213,9 +213,9 @@
       `Rate-only payment change: ${signedMoney(r.customScenario.rateOnlyChange,2)} (${signedPct(r.customScenario.rateOnlyPctChange)})`,
       `Change from what you pay today: ${signedMoney(r.customScenario.todayChange,2)}`
     ];
-    if(r.budget.applicable){lines.push(`Monthly take-home household income: ${money(r.budget.monthlyTakeHomeIncome,0)}`,`Monthly essential outgoings excluding this mortgage: ${money(r.budget.monthlyEssentialOutgoings,0)}`,`Current monthly buffer: ${money(r.budget.bufferToday,0)}`,`Stressed monthly buffer: ${money(r.budget.customBuffer,0)}`,`Stressed mortgage share of take-home income: ${pct(r.budget.stressedMortgageSharePct,1)}`,zeroBufferSummary(r));}
+    if(r.budget.applicable){lines.push(`Monthly take-home household income: ${money(r.budget.monthlyTakeHomeIncome,0)}`,`Monthly essential expenses excluding this ${family().noun}: ${money(r.budget.monthlyEssentialOutgoings,0)}`,`Current monthly buffer: ${money(r.budget.bufferToday,0)}`,`Stressed monthly buffer: ${money(r.budget.customBuffer,0)}`,`Stressed ${family().noun} share of take-home income: ${pct(r.budget.stressedMortgageSharePct,1)}`,zeroBufferSummary(r));}
     else lines.push('Household budget context: not entered');
-    lines.push('Method: future balance is projected to the modeled reset checkpoint; the stressed payment uses the same remaining term. Weekly / every-two-weeks repayments are normalized to monthly equivalents before household comparison.','Educational stress scenario only. Carrowmont does not forecast future rates, determine lender affordability or recommend a mortgage action.');
+    lines.push('Method: future balance is projected to the modeled reset checkpoint; the stressed payment uses the same remaining term. Weekly / every-two-weeks repayments are normalized to monthly equivalents before household comparison.',`Educational stress scenario only. Carrowmont does not forecast future rates, determine lender affordability or recommend a ${family().noun} action.`);
     return lines.join('\n');
   }
 
