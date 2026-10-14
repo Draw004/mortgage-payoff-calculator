@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mortgage Rate Rise Calculator &amp; Payment Stress Test | Carrowmont</title>
+  <meta name="description" content="See how much your mortgage or home-loan payment could rise if interest rates increase. Stress test future payments, monthly income share and optional household budget buffer." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://carrowmont.com/mortgage-payoff-calculator/rate-rise-stress-test.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="decision-centre.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-cluster"><a class="brand carrowmont-brand" href="/" aria-label="Carrowmont home"><span class="brand-wordmark">CARROWMONT</span></a><span class="brand-divider" aria-hidden="true"></span><a class="product-label" id="productLabel" href="rate-rise-stress-test.html">Home Loan EMI Rate Rise Stress Test</a></div>
+      <div class="header-actions">
+        <nav class="top-nav" aria-label="Primary navigation"><a href="#calculator">Calculator</a><a href="#scenarios">Scenarios</a><a href="#methodology">Methodology</a><a href="decision-centre.html">Decision Centre</a><a href="/">Home</a></nav>
+        <details class="locale-menu" id="localeMenu"><summary id="localeSummary" aria-label="Choose country and currency"><span class="locale-globe" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3z"/></svg></span><span id="localeCurrent">India · INR</span><span class="locale-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary><div class="locale-popover"><h3>Country &amp; currency</h3><p>Choose familiar mortgage wording and number formatting.</p><label>Country / region<select id="regionSelect"></select></label><label>Currency<select id="currencySelect"></select></label><div class="locale-note"><strong>Important:</strong> currency changes display only. Carrowmont does not perform FX conversion or insert a country-specific lender stress rate.</div><button class="btn btn-primary btn-small" id="localeDone" type="button">Done</button></div></details>
+        <details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><div class="mobile-nav-links"><a href="/">Carrowmont home</a><a href="decision-centre.html">Mortgage Decision Centre</a><a href="/mortgage-payoff-calculator/">Payoff Calculator</a><a href="#calculator">Calculator</a><a href="#scenarios">Scenarios</a><a href="/mortgage-rate-rise-payment-stress.html">Learn</a></div></details>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="decision-hero">
+      <div class="container">
+        <div class="family-breadcrumb"><a href="decision-centre.html">Mortgage Decision Centre</a><span>›</span><span id="breadcrumbCurrent">Rate Rise / Payment Stress</span></div>
+        <div class="hero-inner">
+          <div><p class="eyebrow">RATE RISE / PAYMENT STRESS</p><h1 id="toolTitle">How much would your mortgage payment rise if rates increase?</h1><p class="hero-copy">Model an immediate rate change or a future renewal/reset. See the payment effect first, then optionally add your take-home income and essential outgoings to understand the monthly cash-flow impact.</p><div class="chips" style="margin-top:16px"><span>Immediate or future reset</span><span>+0.25 to +3 pp stress ladder</span><span>Optional household budget</span><span>No rate forecast</span></div></div>
+          <aside class="decision-question-card"><span class="result-kicker">SEARCH QUESTION → DECISION CONTEXT</span><strong>Payment first. Household context second.</strong><p>Carrowmont isolates the rate-only payment effect at the reset point. Budget figures are optional and use monthly equivalents so weekly or biweekly repayments are never compared directly with monthly income.</p></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy-strip"><div class="container privacy-inner"><span class="privacy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><strong>Your financial inputs stay in this browser by default.</strong><span>Only reusable current-loan facts can be saved locally for the Mortgage Decision Centre. Future rates, reset timing, household income, expenses, buffers and results are never stored in the shared mortgage profile.</span></div></div></section>
+
+    <section class="mdc-calculator-shell" id="calculator">
+      <div class="container">
+        <div class="profile-banner mdc-profile-banner" id="profileBanner" hidden><div><strong>Saved mortgage details are available in this browser.</strong><p class="mdc-profile-summary" id="profileSummary">Review them before applying.</p></div><div class="profile-banner-actions stress-profile-actions"><button class="btn btn-primary btn-small" id="applyProfileBtn" type="button">Use these loan details</button><button class="btn btn-secondary btn-small" id="startFreshBtn" type="button">Start fresh</button><button class="btn btn-secondary btn-small" id="clearProfileBtn" type="button">Clear saved details</button></div></div>
+
+        <div class="mdc-calculator-layout">
+          <section class="mdc-input-card">
+            <div class="section-head"><div><p class="eyebrow">YOUR ASSUMPTIONS</p><h2>Stress the payment without changing the remaining term</h2></div><button class="text-btn" id="resetBtn" type="button">Reset</button></div>
+
+            <div class="mdc-section"><h3>1. Your current mortgage / home loan</h3><p>Enter the current balance, annual rate, remaining amortization and scheduled repayment cadence.</p><div class="mdc-fields">
+              <label class="mdc-field"><span id="balanceLabel">Outstanding home loan balance</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="balance" type="number" min="1" step="1000" value="5000000" inputmode="decimal" /></div></label>
+              <label class="mdc-field"><span>Current annual interest rate</span><div class="mdc-suffix"><input id="currentRate" type="number" min="0" max="50" step="0.01" value="8.50" inputmode="decimal" /><span>%</span></div></label>
+              <label class="mdc-field"><span id="termLabel">Remaining loan tenure - years</span><input id="remainingYears" type="number" min="0" max="100" step="1" value="15" /></label>
+              <label class="mdc-field"><span>Additional months</span><input id="remainingMonths" type="number" min="0" max="11" step="1" value="0" /></label>
+              <label class="mdc-field wide"><span>Scheduled repayment frequency</span><select id="paymentFrequency"><option value="monthly">Monthly</option><option value="biweekly" id="biweeklyOption">Every 2 Weeks</option><option value="weekly">Weekly</option></select><small>The same cadence is used before and after the modeled rate change.</small></label>
+            </div>
+            <label class="mdc-check stress-override-check"><input id="useCurrentPayment" type="checkbox" /><span><strong>Use my lender's current scheduled repayment amount</strong><small>This amount is used to project the balance to a future reset and to compare the stressed payment with what you pay today. The pure rate effect still uses a same-rate reference payment at reset.</small></span></label>
+            <div class="mdc-fields mdc-hidden" id="currentPaymentFields" style="margin-top:12px"><label class="mdc-field wide"><span id="currentPaymentLabel">Current scheduled repayment amount</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="currentPayment" type="number" min="0.01" step="1" value="50000" inputmode="decimal" /></div><small>V1 does not model negative-amortization or payment-cap products.</small></label></div>
+            </div>
+
+            <div class="mdc-section"><h3>2. When could the rate change?</h3><p>Use 0 for an immediate stress. For a future renewal or reset, Carrowmont projects the current balance to the nearest scheduled repayment checkpoint.</p><div class="mdc-fields"><label class="mdc-field wide"><span>Months until the higher rate could apply</span><input id="monthsUntilRateChange" type="number" min="0" step="1" value="0" /><small id="resetTimingHelp">0 means the stressed rate applies to the current balance now.</small></label></div></div>
+
+            <div class="mdc-section"><h3>3. Stress the rate</h3><p>Enter any future rate from 0% to 50%. The tool also calculates +0.25, +0.50, +1, +2 and +3 percentage-point scenarios automatically.</p><div class="mdc-fields"><label class="mdc-field wide"><span>Future / stressed annual rate</span><div class="mdc-suffix"><input id="stressedRate" type="number" min="0" max="50" step="0.01" value="9.50" inputmode="decimal" /><span>%</span></div><small id="rateDeltaHelp">9.50% = +1.00 percentage point from 8.50%.</small></label></div></div>
+
+            <div class="mdc-section"><h3>4. Add household budget context <span style="font-weight:600;color:var(--muted)">(optional)</span></h3><p>The payment stress test works without household figures. Turn this on only if you want to see the monthly amount left after the mortgage and the essential outgoings you enter.</p><label class="mdc-check"><input id="budgetEnabled" type="checkbox" /><span><strong>Add monthly household cash-flow context</strong><small>No universal safe ratio or lender affordability threshold is applied.</small></span></label><div class="mdc-fields mdc-hidden" id="budgetFields" style="margin-top:14px">
+              <label class="mdc-field"><span>Monthly take-home household income</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="monthlyIncome" type="number" min="0" step="100" placeholder="Optional" inputmode="decimal" /></div></label>
+              <label class="mdc-field"><span>Monthly essential outgoings excluding this mortgage</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="monthlyExpenses" type="number" min="0" step="100" placeholder="Optional" inputmode="decimal" /></div><small>Examples: food, utilities, transport, insurance, childcare and required debt payments. You decide what to include.</small></label>
+              <div class="stress-assumption-note wide"><strong>Future-budget assumption</strong><span>Income and non-mortgage expenses are held constant. Carrowmont does not forecast wages, inflation or future household costs.</span></div>
+            </div></div>
+
+            <div class="mdc-validation" id="validationMessage" role="alert" hidden></div>
+          </section>
+
+          <aside class="mdc-summary-column">
+            <section class="mdc-summary-card mdc-hero-result" aria-live="polite"><span class="result-kicker">CUSTOM STRESSED PAYMENT</span><strong class="mdc-hero-value" id="stressedPaymentResult">—</strong><p id="heroResultText">Enter valid assumptions to calculate the payment stress.</p></section>
+            <section class="mdc-summary-card mdc-results-grid">
+              <div><span>Payment today</span><strong id="paymentTodayResult">—</strong></div>
+              <div><span>Same-rate reference at reset</span><strong id="sameRatePaymentResult">—</strong></div>
+              <div><span>Rate-only payment change</span><strong id="rateOnlyChangeResult">—</strong></div>
+              <div><span>Change from what you pay today</span><strong id="todayChangeResult">—</strong></div>
+              <div><span>Payment % change</span><strong id="ratePctChangeResult">—</strong></div>
+              <div><span>Stressed monthly equivalent</span><strong id="monthlyEquivalentResult">—</strong></div>
+              <div><span>Annualized cash-flow change</span><strong id="annualCashFlowResult">—</strong></div>
+            </section>
+            <section class="mdc-summary-card"><span class="result-kicker">RATE-CHANGE CHECKPOINT</span><div class="stress-reset-grid"><div><span>Modeled timing</span><strong id="resetTimingResult">—</strong></div><div><span>Projected balance at reset</span><strong id="resetBalanceResult">—</strong></div><div><span>Remaining term at reset</span><strong id="resetTermResult">—</strong></div></div><p class="mdc-result-note" id="resetNote">A future date is snapped to the nearest modeled repayment checkpoint.</p></section>
+            <section class="mdc-summary-card stress-budget-card" id="budgetResultCard" hidden><span class="result-kicker">OPTIONAL HOUSEHOLD CONTEXT</span><strong id="budgetStateTitle">—</strong><div class="stress-reset-grid"><div><span>Current monthly buffer</span><strong id="bufferTodayResult">—</strong></div><div><span>Stressed monthly buffer</span><strong id="bufferStressResult">—</strong></div><div><span>Stressed mortgage share</span><strong id="mortgageShareResult">—</strong></div><div><span>Modeled zero-buffer rate</span><strong id="zeroBufferRateResult">—</strong></div></div><p class="mdc-result-note" id="zeroBufferNote">A mathematical crossover under the entered income and expense assumptions — not a recommended maximum or lender affordability result.</p></section>
+            <section class="mdc-summary-card mdc-action-card"><button class="btn btn-primary" id="reportBtn" type="button">Generate Payment Stress Decision Report</button><button class="btn btn-secondary" id="copyBtn" type="button">Copy Summary</button><button class="btn btn-secondary" id="saveProfileBtn" type="button">Save current loan details locally</button><button class="text-btn" id="clearSavedBtn" type="button">Clear saved mortgage details</button><span class="action-status" id="reportDownloadStatus" aria-live="polite"></span></section>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison-section" id="scenarios"><div class="container"><div class="section-title"><p class="eyebrow">PAYMENT STRESS LADDER</p><h2>See the baseline, your custom rate and standard percentage-point stresses.</h2><p>The visible table is the source of truth. All rows hold the remaining amortization term constant after the modeled reset point.</p></div><div class="comparison-table-wrap"><table class="comparison-table stress-table"><thead><tr><th>Scenario</th><th>Annual rate</th><th>Scheduled payment</th><th>Monthly equivalent</th><th>Rate-only change</th><th>Payment % change</th><th class="budget-column" hidden>Budget buffer*</th></tr></thead><tbody id="scenarioTableBody"></tbody></table></div><p class="stress-table-foot" id="budgetTableFoot" hidden>*Budget buffer uses the monthly take-home income and essential outgoings you entered.</p>
+      <div class="stress-chart-card"><div class="refi-chart-head"><div><span class="result-kicker">PAYMENT CURVE</span><strong id="chartTitle">Monthly-equivalent payment across modeled rates</strong></div><div class="refi-chart-key"><span><i class="refi-key-line"></i>Mortgage payment</span><span id="budgetLineKey" hidden><i class="stress-key-budget"></i>Available for mortgage</span></div></div><svg id="stressChart" class="stress-payment-chart" viewBox="0 0 760 300" role="img" aria-labelledby="chartTitle chartSummary"></svg><p class="refi-chart-summary" id="chartSummary">The chart reinforces the scenario table and does not replace it.</p></div>
+    </div></section>
+
+    <section class="comparison-section" id="methodology"><div class="container"><div class="section-title"><p class="eyebrow">METHODOLOGY</p><h2>What this stress test is—and is not—doing.</h2></div><div class="methodology-grid"><article class="methodology-card"><h3>Payment-stress method</h3><ol><li>Model the scheduled payment from the current balance, rate, remaining term and repayment cadence, unless you explicitly use a current-payment override.</li><li>For a future reset, project the balance forward using that current scheduled payment; do not amortize the loan over only the pre-reset period.</li><li>At the reset point, calculate a same-rate reference payment over the remaining term and a stressed-rate payment over that same term.</li><li>The difference between those two payments is the <strong>pure rate effect</strong>. The stressed payment is also compared separately with what you actually pay today.</li><li>Weekly and every-two-weeks payments are converted to monthly equivalents before optional household-budget comparison.</li><li>If household figures are entered, the zero-buffer rate is solved mathematically between 0% and 50%. It is not called a safe or affordable rate.</li></ol><p><a href="/mortgage-rate-rise-payment-stress.html">Read the full rate-rise and payment-stress guide →</a></p></article><aside class="methodology-card"><h3>Important boundaries</h3><ul><li>No future-rate forecast or central-bank probability.</li><li>No lender affordability, DTI, eligibility or credit assessment.</li><li>No term extension or refinance-fee comparison inside MDC1C.</li><li>US fixed-rate borrowers do not automatically get a higher payment just because market rates rise; use this for an ARM adjustment, renewal/reset, refinance or other future-rate scenario that actually changes your loan rate.</li><li>Income and expenses are held constant if you model a future reset.</li></ul></aside></div><div class="decision-links" style="margin-top:18px"><a href="refinance-break-even.html"><strong>Fees or term changes matter?</strong><span>Use MDC1B Refinance / Balance Transfer Break-Even.</span></a><a href="/mortgage-payoff-calculator/"><strong>Considering extra repayments?</strong><span>Use the Mortgage / Home Loan Payoff Calculator.</span></a><a href="prepayment-vs-investing.html"><strong>Prepay or invest?</strong><span>Compare the same extra cash across both paths.</span></a><a href="decision-centre.html"><strong>Mortgage Decision Centre</strong><span>Return to all four live mortgage decisions.</span></a></div></div></section>
+
+    <section class="faq-section" id="faq"><div class="container"><div class="section-title"><p class="eyebrow">FAQ</p><h2>Questions about mortgage payment stress</h2></div><div class="faq-list"><details><summary>Does a 1% rate rise mean my payment rises by 1%?</summary><p>No. A move from 6% to 7% is a one percentage-point increase in the annual rate, but the payment change depends on the balance, remaining term, repayment frequency and interest convention.</p></details><details><summary>Why project the balance to a future renewal or reset date?</summary><p>If the new rate applies later, the balance should usually be lower by then. Applying the future rate to today's balance would overstate the amount still owed at the modeled reset point.</p></details><details><summary>Is the modeled zero-buffer rate my maximum affordable rate?</summary><p>No. It is only the mathematical rate at which the entered monthly take-home income minus entered essential outgoings equals the modeled monthly-equivalent mortgage payment. It is not a lender rule or a recommendation.</p></details><details><summary>Can I use this for a fixed-rate US mortgage?</summary><p>Only when the loan rate can actually change—for example an ARM adjustment, future refinance or another contractual reset. A typical fully fixed-rate mortgage payment does not automatically change when market rates rise.</p></details></div></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand-block"><a class="footer-wordmark" href="/">CARROWMONT</a><strong class="footer-product-name" id="footerProductName">Home Loan EMI Rate Rise Stress Test</strong><p>Model the payment effect of a future rate without pretending to predict rates or lender affordability.</p><span class="footer-small">Educational decision tool · Carrowmont</span></div><div class="footer-col"><strong>Mortgage tools</strong><a href="/mortgage-payoff-calculator/">Payoff / Prepayment</a><a href="decision-centre.html">Mortgage Decision Centre</a><a href="prepayment-vs-investing.html">Prepayment vs Investing</a><a href="refinance-break-even.html">Refinance Break-Even</a><a href="rate-rise-stress-test.html" aria-current="page">Rate Rise Stress Test</a></div><div class="footer-col"><strong>Carrowmont</strong><a href="/learn.html#home-loans">Mortgage Learn</a><a href="/methodology.html">Methodology</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></div><div class="footer-col"><strong>Legal</strong><a href="/disclaimer.html">Disclaimer</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div></div><div class="container footer-bottom"><span>&copy; 2026 Carrowmont · <span id="footerProductBottom">Home Loan EMI Rate Rise Stress Test</span></span><span>Illustrative estimates, not financial advice.</span></div></footer>
+
+  <script src="locale.js"></script>
+  <script src="core.js"></script>
+  <script src="mortgage-decision-profile.js"></script>
+  <script src="rate-rise-stress-test-core.js"></script>
+  <script src="pdf-export.js"></script>
+  <script src="report-standard.js"></script>
+  <script src="rate-rise-stress-test-pdf-renderer.js"></script>
+  <script src="rate-rise-stress-test.js"></script>
+  <script src="analytics.js" data-carrowmont-tool="mortgage-rate-rise-stress-test"></script>
+</body>
+</html>

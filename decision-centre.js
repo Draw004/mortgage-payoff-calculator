@@ -9,19 +9,19 @@
   }
   function identity(region=L.getRegion()){
     const map={
-      IN:{hub:'Home Loan decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Balance Transfer'},
-      US:{hub:'Mortgage decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Refinance'},
-      CA:{hub:'Mortgage decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Refinance'},
-      GB:{hub:'Mortgage decisions',payoff:'Payoff / Overpayment',invest:'Overpay vs Invest',refi:'Remortgage / Product Switch'},
-      IE:{hub:'Mortgage decisions',payoff:'Payoff / Overpayment',invest:'Overpay vs Invest',refi:'Refinance'},
-      AU:{hub:'Home Loan decisions',payoff:'Payoff / Extra Repayments',invest:'Extra Repayments vs Invest',refi:'Refinance'},
-      NZ:{hub:'Home Loan decisions',payoff:'Payoff / Extra Repayments',invest:'Extra Repayments vs Invest',refi:'Refinance'}
+      IN:{hub:'Home Loan decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Balance Transfer',stress:'EMI Rate Rise Stress'},
+      US:{hub:'Mortgage decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Refinance',stress:'Rate Rise / Payment Stress'},
+      CA:{hub:'Mortgage decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Refinance',stress:'Renewal Payment Stress'},
+      GB:{hub:'Mortgage decisions',payoff:'Payoff / Overpayment',invest:'Overpay vs Invest',refi:'Remortgage / Product Switch',stress:'Rate Rise / Payment Stress'},
+      IE:{hub:'Mortgage decisions',payoff:'Payoff / Overpayment',invest:'Overpay vs Invest',refi:'Refinance',stress:'Rate Rise / Payment Stress'},
+      AU:{hub:'Home Loan decisions',payoff:'Payoff / Extra Repayments',invest:'Extra Repayments vs Invest',refi:'Refinance',stress:'Rate Rise Stress'},
+      NZ:{hub:'Home Loan decisions',payoff:'Payoff / Extra Repayments',invest:'Extra Repayments vs Invest',refi:'Refinance',stress:'Rate Rise Stress'}
     };
-    return map[region]||{hub:'Mortgage / Home Loan decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Refinance'};
+    return map[region]||{hub:'Mortgage / Home Loan decisions',payoff:'Payoff / Prepayment',invest:'Prepay vs Invest',refi:'Refinance',stress:'Rate Rise / Payment Stress'};
   }
   function sync(){
     $('regionSelect').value=L.getRegion();$('currencySelect').value=L.getCurrency();$('localeCurrent').textContent=`${L.getProfile().label} · ${L.getCurrency()}`;
-    const id=identity();$('hubIdentity').textContent=id.hub;$('payoffCardTitle').textContent=id.payoff;$('investCardTitle').textContent=id.invest;$('refiCardTitle').textContent=id.refi;
+    const id=identity();$('hubIdentity').textContent=id.hub;$('payoffCardTitle').textContent=id.payoff;$('investCardTitle').textContent=id.invest;$('refiCardTitle').textContent=id.refi;$('stressCardTitle').textContent=id.stress;
     const p=P.read();$('profileBanner').hidden=!p;
     if(p){$('profileSummary').textContent=`${L.formatMoney(p.balance,{currency:p.currency,maximumFractionDigits:0})} balance · ${p.annualRatePct.toFixed(2)}% · ${p.remainingYears}y ${p.remainingMonths}m · ${p.paymentFrequency}`;}
   }
