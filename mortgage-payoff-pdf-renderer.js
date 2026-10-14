@@ -3,6 +3,7 @@
   const P=()=>window.CarrowmontPdfExport;
   const RS=()=>window.CarrowmontReportStandard;
   const L=()=>window.CarrowmontLocale;
+  const T=()=>L().getMortgageTerms?.()||{noun:'mortgage',nounCap:'Mortgage',familyName:'Mortgage Decision Centre'};
   const W=794,H=1123,M=40,CW=W-M*2;
   const C={ink:'#102945',navy:'#123f5f',teal:'#0e8b80',tealDark:'#08756d',muted:'#4c6379',line:'#d6e1e6',pale:'#e8f6f3',light:'#f7fafc',white:'#fff',amber:'#fff5df',red:'#fff0ee'};
 
@@ -141,7 +142,7 @@
       ],
       assumptions:`The annual rate is held constant. Carrowmont does not model variable-rate resets, lender-specific penalty formulas, offset/redraw accounts, escrow, taxes, insurance or refinancing. Entered charges are used only when supplied by the user. Selected scheduled repayment frequency: ${freqLabel(i.paymentFrequency)}.`,
       disclaimer:'This report is an educational planning illustration, not individualized credit, financial, tax or legal advice. Actual lender calculations can differ because of daily interest, rounding, settlement dates, fees, loan contracts and local rules. Confirm any prepayment, overpayment, foreclosure or payoff amount with the lender before acting.',
-      methodologyMeta:'Mortgage Payoff / Home Loan Prepayment methodology v1.0.0',
+      methodologyMeta:`${T().nounCap} payoff / prepayment methodology v1.0.0`,
       methodologyUrl:'carrowmont.com/mortgage-payoff-calculator/#methodology'
     });
   }

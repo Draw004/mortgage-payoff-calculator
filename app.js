@@ -7,6 +7,8 @@
   const $=id=>document.getElementById(id);
   const qsa=s=>[...document.querySelectorAll(s)];
   let mode='recurring', planningView='monthly', lastResult=null, userTouched=false;
+  const SHARED_LOAN_ENABLED_KEY='carrowmont_mortgage_shared_plan_enabled_v1';
+  const SHARED_LOAN_PATHS=['housingLoan.balance','housingLoan.annualInterestRatePct','housingLoan.remainingPeriods','housingLoan.paymentFrequency','housingLoan.regularPayment','housingLoan.monthlyEquivalentPayment','housingLoan.modeledPayoffDate'];
 
   const els={
     regionSelect:$('regionSelect'),currencySelect:$('currencySelect'),localeCurrent:$('localeCurrent'),localeMenu:$('localeMenu'),
@@ -68,6 +70,7 @@
     const id=regionIdentity();
     els.regionSelect.value=L.getRegion(); els.currencySelect.value=L.getCurrency(); els.localeCurrent.textContent=`${L.getProfile().label} · ${L.getCurrency()}`;
     $('productLabel').textContent=id.product; qsa('.footer-product-name,.footer-product-bottom').forEach(n=>n.textContent=id.product); $('toolTitle').textContent=id.title; $('balanceLabel').textContent=id.balance; $('termLabel').textContent=id.term; $('extraAmountLabel').textContent=id.extra; $('extraFrequencyLabel').textContent=id.extraFreq; $('currentPaymentLabel').textContent=id.current; $('reportBtn').textContent=id.report; $('fullPayoffHeading').textContent=id.full; $('prepaymentChargeLabel').textContent=id.charge; $('methodologyCountryNote').textContent=id.note;
+    L.applyMortgageCopy?.();
     const symbol=L.currencySymbol(); qsa('.currency-prefix').forEach(n=>n.textContent=symbol); $('biweeklyOption').textContent=twoWeekLabel();
     const payBi=els.payFrequency.querySelector('option[value="biweekly"]'); if(payBi) payBi.textContent=twoWeekLabel();
     const inv=L.getRegion()==='IN'?'SIP Calculator':'Recurring Investment Calculator'; qsa('.investment-tool-link,.footer-investment-link').forEach(n=>n.textContent=inv);
@@ -143,8 +146,18 @@
     els.periodTableBody.innerHTML=result.scenario.ledger.map(r=>`<tr><td>${r.period}</td><td>${r.date}</td><td>${money(r.openingBalance)}</td><td>${money(r.interest)}</td><td>${money(r.scheduledRepayment)}</td><td>${money(r.extraRepayment)}</td><td>${money(r.closingBalance)}</td></tr>`).join('');
   }
 
+  function sharedLoanEnabled(){
+    try{return localStorage.getItem(SHARED_LOAN_ENABLED_KEY)!=='0';}catch(_){return true;}
+  }
+  function setSharedLoanEnabled(enabled){try{localStorage.setItem(SHARED_LOAN_ENABLED_KEY,enabled?'1':'0');}catch(_){}}
+  function updateSharedPlanUi(message=''){
+    const btn=$('clearSharedBtn'),status=$('sharedPlanStatus');if(!btn||!status)return;
+    const enabled=sharedLoanEnabled();
+    btn.textContent=enabled?'Stop sharing this loan with other Carrowmont tools':'Share this loan with other Carrowmont tools';
+    status.textContent=message||(enabled?'This loan is available to compatible Carrowmont tools in this browser.':'This loan is not shared with other Carrowmont tools.');
+  }
   function writeShared(result,input){
-    if(!S||!result?.ok) return;
+    if(!S||!result?.ok||!sharedLoanEnabled()) return;
     const monthlyEquivalent=result.common.payment*result.common.m/12;
     S.setMany({
       'housingLoan.balance':{value:input.balance,currency:input.currency},
@@ -156,13 +169,25 @@
       'housingLoan.modeledPayoffDate':{value:result.baseline.payoffDate}
     },{sourceTool:'mortgage-payoff-calculator'});
   }
+  function toggleSharedLoan(){
+    if(!S){updateSharedPlanUi('Shared-plan storage is unavailable in this browser.');return;}
+    if(sharedLoanEnabled()){
+      setSharedLoanEnabled(false);
+      S.clear(SHARED_LOAN_PATHS);
+      updateSharedPlanUi('Loan details are no longer available to other Carrowmont tools.');
+      return;
+    }
+    setSharedLoanEnabled(true);
+    if(lastResult?.ok)writeShared(lastResult,readInput());
+    updateSharedPlanUi('Loan details are now available to compatible Carrowmont tools in this browser.');
+  }
 
   function render(){
     updatePanels(); clearError(); const input=readInput();
     if(planningView==='paycycle' && !userTouched && els.payFrequency.value==='monthly') els.payFrequency.value=countryDefaultPay();
     const result=C.calculate(input); lastResult=result;
     if(!result.ok){ showError(result.error); els.resultHeadline.textContent='Review the highlighted assumptions.'; els.resultSubtext.textContent=errors[result.error]||'The model could not calculate this scenario.'; return; }
-    renderResults(result,input); renderChart(result,input); renderTables(result,input); writeShared(result,input);
+    renderResults(result,input); renderChart(result,input); renderTables(result,input); writeShared(result,input); updateSharedPlanUi();
     const setAside=C.setAsidePerPayCycle(input); els.setAsideAmount.textContent=money(setAside,{decimals:2}); els.setAsideCard.classList.toggle('hidden',!(planningView==='paycycle'&&input.recurringEnabled&&input.extraFrequency&&input.recurringExtra>0));
     const learn=resultLearn(input); $('resultLearnTitle').textContent=learn.title; $('resultLearnText').textContent=learn.text; $('resultLearnLink').setAttribute('href',learn.href);
   }
@@ -208,7 +233,7 @@
     document.querySelector('.planner-card').addEventListener('input',e=>{if(e.target.matches('input,select'))userTouched=true;render();}); document.querySelector('.planner-card').addEventListener('change',e=>{if(e.target.matches('input,select'))userTouched=true;render();});
     els.regionSelect.addEventListener('change',()=>{L.setRegion(els.regionSelect.value); if(!userTouched) els.payFrequency.value=countryDefaultPay();}); els.currencySelect.addEventListener('change',()=>L.setCurrency(els.currencySelect.value));
     $('localeDone').addEventListener('click',()=>{els.localeMenu.open=false;}); window.addEventListener('carrowmont:localechange',()=>{syncLocaleUi();render();});
-    $('resetBtn').addEventListener('click',reset); $('copyBtn').addEventListener('click',copySummary); $('csvBtn').addEventListener('click',downloadCsv); $('reportBtn').addEventListener('click',generateReport); $('compareInvestBtn').addEventListener('click',continueToPrepayVsInvest); $('clearSharedBtn').addEventListener('click',()=>{S?.clear();els.reportStatus.textContent='Shared Carrowmont plan values cleared from this browser.';});
+    $('resetBtn').addEventListener('click',reset); $('copyBtn').addEventListener('click',copySummary); $('csvBtn').addEventListener('click',downloadCsv); $('reportBtn').addEventListener('click',generateReport); $('compareInvestBtn').addEventListener('click',continueToPrepayVsInvest); $('clearSharedBtn').addEventListener('click',toggleSharedLoan);
   }
 
   populateLocale(); syncLocaleUi(); els.payFrequency.value=countryDefaultPay(); bind(); render();

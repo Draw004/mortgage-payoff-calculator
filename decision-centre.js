@@ -21,7 +21,7 @@
   }
   function sync(){
     $('regionSelect').value=L.getRegion();$('currencySelect').value=L.getCurrency();$('localeCurrent').textContent=`${L.getProfile().label} · ${L.getCurrency()}`;
-    const id=identity();$('hubIdentity').textContent=id.hub;$('payoffCardTitle').textContent=id.payoff;$('investCardTitle').textContent=id.invest;$('refiCardTitle').textContent=id.refi;$('stressCardTitle').textContent=id.stress;
+    const id=identity();$('hubIdentity').textContent=id.hub;$('payoffCardTitle').textContent=id.payoff;$('investCardTitle').textContent=id.invest;$('refiCardTitle').textContent=id.refi;$('stressCardTitle').textContent=id.stress;L.applyMortgageCopy?.();
     const p=P.read();$('profileBanner').hidden=!p;
     if(p){$('profileSummary').textContent=`${L.formatMoney(p.balance,{currency:p.currency,maximumFractionDigits:0})} balance · ${p.annualRatePct.toFixed(2)}% · ${p.remainingYears}y ${p.remainingMonths}m · ${p.paymentFrequency}`;}
   }
