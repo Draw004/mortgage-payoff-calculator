@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mortgage Refinance Break-Even Calculator | Carrowmont</title>
+  <meta name="description" content="Compare a mortgage refinance, remortgage or home-loan balance transfer after fees, cashback and term changes. See same-term payment, proposed payment, break-even timing and modeled lifetime cost." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://carrowmont.com/mortgage-payoff-calculator/refinance-break-even.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="decision-centre.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-cluster"><a class="brand carrowmont-brand" href="/" aria-label="Carrowmont home"><span class="brand-wordmark">CARROWMONT</span></a><span class="brand-divider" aria-hidden="true"></span><a class="product-label" id="productLabel" href="refinance-break-even.html">Home Loan Balance Transfer Break-Even</a></div>
+      <div class="header-actions">
+        <nav class="top-nav" aria-label="Primary navigation"><a href="#calculator">Calculator</a><a href="#comparison">Comparison</a><a href="#methodology">Methodology</a><a href="decision-centre.html">Decision Centre</a><a href="/">Home</a></nav>
+        <details class="locale-menu" id="localeMenu"><summary id="localeSummary" aria-label="Choose country and currency"><span class="locale-globe" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3z"/></svg></span><span id="localeCurrent">India · INR</span><span class="locale-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary><div class="locale-popover"><h3>Country &amp; currency</h3><p>Choose familiar terminology and number formatting.</p><label>Country / region<select id="regionSelect"></select></label><label>Currency<select id="currencySelect"></select></label><div class="locale-note"><strong>Important:</strong> changing currency changes the unit and formatting only. It does not convert entered values.</div><button class="btn btn-primary btn-small" id="localeDone" type="button">Done</button></div></details>
+        <details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><div class="mobile-nav-links"><a href="/">Carrowmont home</a><a href="decision-centre.html">Mortgage Decision Centre</a><a href="/mortgage-payoff-calculator/">Payoff Calculator</a><a href="#calculator">Calculator</a><a href="#methodology">Methodology</a><a href="/mortgage-refinance-break-even.html">Learn</a></div></details>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="decision-hero">
+      <div class="container">
+        <div class="family-breadcrumb"><a href="decision-centre.html">Mortgage Decision Centre</a><span>›</span><span id="breadcrumbCurrent">Balance Transfer Break-Even</span></div>
+        <div class="hero-inner">
+          <div><p class="eyebrow">REFINANCE / BALANCE TRANSFER</p><h1 id="toolTitle">When does refinancing actually break even?</h1><p class="hero-copy">Compare the current loan with a new offer after switching costs, exit charges, cashback and term changes. Carrowmont separates the pure rate effect from the lender's proposed repayment term.</p><div class="chips" style="margin-top:16px"><span>Durable break-even</span><span>Same-term rate check</span><span>Holding-period result</span><span>No lender recommendation</span></div></div>
+          <aside class="decision-question-card"><span class="result-kicker">THE KEY CHECK</span><strong>A lower payment is not automatically a cheaper loan.</strong><p>Carrowmont shows the new-rate payment over your existing remaining term as well as the actual payment under the proposed new term, so a longer term cannot hide inside the rate comparison.</p></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy-strip"><div class="container privacy-inner"><span class="privacy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><strong>Your financial inputs stay in this browser by default.</strong><span>Only reusable mortgage facts may be saved locally for the Decision Centre. Offer rates, switching fees, cashback, holding periods and results are not stored in the shared profile.</span></div></div></section>
+
+    <section class="mdc-calculator-shell" id="calculator">
+      <div class="container">
+        <div class="profile-banner mdc-profile-banner" id="profileBanner" hidden><div><strong>Loan details are available from another Mortgage Decision Centre step.</strong><p class="mdc-profile-summary" id="profileSummary">Review them before applying.</p></div><div class="profile-banner-actions"><button class="btn btn-primary btn-small" id="applyProfileBtn" type="button">Use these loan details</button><button class="btn btn-secondary btn-small" id="startFreshBtn" type="button">Start fresh</button></div></div>
+        <div class="mdc-calculator-layout">
+          <section class="mdc-input-card">
+            <div class="section-head"><div><p class="eyebrow">YOUR ASSUMPTIONS</p><h2>Compare your current loan with one offer</h2></div><button class="text-btn" id="resetBtn" type="button">Reset</button></div>
+
+            <div class="mdc-section"><h3>1. Current mortgage / home loan</h3><p>Carrowmont derives the current modeled repayment from the balance, rate and remaining term so the rate-only comparison stays internally consistent.</p><div class="mdc-fields">
+              <label class="mdc-field"><span id="balanceLabel">Outstanding home loan balance</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="balance" type="number" min="1" step="1000" value="5000000" inputmode="decimal" /></div></label>
+              <label class="mdc-field"><span>Current annual interest rate</span><div class="mdc-suffix"><input id="currentRate" type="number" min="0" max="50" step="0.01" value="8.50" inputmode="decimal" /><span>%</span></div></label>
+              <label class="mdc-field"><span id="currentTermLabel">Remaining loan tenure - years</span><input id="remainingYears" type="number" min="0" max="100" step="1" value="15" /></label>
+              <label class="mdc-field"><span>Additional months</span><input id="remainingMonths" type="number" min="0" max="11" step="1" value="0" /></label>
+              <label class="mdc-field wide"><span>Scheduled repayment frequency</span><select id="paymentFrequency"><option value="monthly">Monthly</option><option value="biweekly" id="biweeklyOption">Every 2 Weeks</option><option value="weekly">Weekly</option></select><small>The same repayment frequency is used for both current and proposed loans in V1.</small></label>
+            </div></div>
+
+            <div class="mdc-section"><h3>2. Proposed refinance / transfer offer</h3><p>Enter the offered rate and proposed new term. Carrowmont does not fetch or rank lender offers.</p><div class="mdc-fields">
+              <label class="mdc-field"><span>New offered annual interest rate</span><div class="mdc-suffix"><input id="newRate" type="number" min="0" max="50" step="0.01" value="7.75" inputmode="decimal" /><span>%</span></div></label>
+              <label class="mdc-field"><span id="proposedTermLabel">Proposed new tenure - years</span><input id="proposedYears" type="number" min="0" max="100" step="1" value="15" /></label>
+              <label class="mdc-field"><span>Additional months</span><input id="proposedMonths" type="number" min="0" max="11" step="1" value="0" /></label>
+            </div></div>
+
+            <div class="mdc-section"><h3>3. Switching costs and incentive</h3><p>Enter the actual amounts you want modeled. Carrowmont does not invent local penalties, legal fees or lender rules.</p><div class="mdc-fields">
+              <label class="mdc-field"><span id="switchingFeesLabel">Switching / processing / legal / valuation fees</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="switchingFees" type="number" min="0" step="100" value="25000" /></div></label>
+              <label class="mdc-field"><span id="exitChargeLabel">Existing lender exit / prepayment charge</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="exitCharge" type="number" min="0" step="100" value="0" /></div></label>
+              <label class="mdc-field"><span>Cashback / incentive</span><div class="mdc-money"><span class="currency-prefix">₹</span><input id="cashback" type="number" min="0" step="100" value="0" /></div><small>Enter only the amount you want treated as retained at completion. Clawbacks, tax and eligibility conditions are not modeled.</small></label>
+              <label class="mdc-field"><span>How are the switching fees paid?</span><select id="feePaymentMode"><option value="upfront">Paid upfront</option><option value="financed">Financed into the new loan</option></select><small>Financed fees increase the new principal and therefore also create interest.</small></label>
+            </div></div>
+
+            <div class="mdc-section"><h3>4. Expected holding period <span style="font-weight:600;color:var(--muted)">(optional)</span></h3><p>Use this if you expect to sell, refinance or switch again before the modeled loan finishes.</p><label class="mdc-check"><input id="useHoldingPeriod" type="checkbox" checked /><span><strong>Show the modeled result at my expected holding period</strong><small>This assumes both paths are settled at that point. Property value, selling costs and a future replacement loan are not modeled.</small></span></label><div class="mdc-fields" id="holdingFields" style="margin-top:14px"><label class="mdc-field"><span>Holding period - years</span><input id="holdingYears" type="number" min="0" max="100" step="1" value="5" /></label><label class="mdc-field"><span>Additional months</span><input id="holdingMonths" type="number" min="0" max="11" step="1" value="0" /></label></div></div>
+
+            <div class="mdc-validation" id="validationMessage" role="alert" hidden></div>
+          </section>
+
+          <aside class="mdc-summary-column">
+            <section class="mdc-summary-card mdc-hero-result" aria-live="polite"><span class="result-kicker">DURABLE ECONOMIC BREAK-EVEN</span><strong class="mdc-hero-value" id="breakEvenValue">—</strong><p id="breakEvenText">Enter valid assumptions to calculate the comparison.</p></section>
+            <section class="mdc-summary-card mdc-results-grid">
+              <div><span>Current modeled repayment</span><strong id="currentPaymentResult">—</strong></div>
+              <div><span>New rate · same remaining term</span><strong id="rateOnlyPaymentResult">—</strong></div>
+              <div><span>Proposed refinance repayment</span><strong id="proposedPaymentResult">—</strong></div>
+              <div><span>Repayment change</span><strong id="paymentChangeResult">—</strong></div>
+              <div><span id="holdingResultLabel">At expected holding period</span><strong id="holdingResult">—</strong></div>
+              <div><span>Lifetime modeled effect</span><strong id="lifetimeResult">—</strong></div>
+            </section>
+            <section class="mdc-summary-card refinance-warning" id="termWarning" hidden><strong id="termWarningTitle">Term-change warning</strong><p id="termWarningText"></p></section>
+            <section class="mdc-summary-card"><span class="result-kicker">SWITCHING COST</span><div class="refi-cost-grid"><div><span>Switching fees</span><strong id="switchingFeesResult">—</strong></div><div><span>Exit / early-repayment charge</span><strong id="exitChargeResult">—</strong></div><div><span>Cashback / incentive</span><strong id="cashbackResult">—</strong></div><div><span>Net switching cost</span><strong id="netSwitchingCostResult">—</strong></div></div><p class="mdc-result-note" id="feeModeNote"></p></section>
+            <section class="mdc-summary-card mdc-action-card"><button class="btn btn-primary" id="reportBtn" type="button">Generate Refinance Decision Report</button><button class="btn btn-secondary" id="copyBtn" type="button">Copy Summary</button><button class="btn btn-secondary" id="saveProfileBtn" type="button">Save Mortgage Details for Decision Centre</button><button class="text-btn" id="clearProfileBtn" type="button">Clear saved mortgage details</button><span class="action-status" id="reportDownloadStatus" aria-live="polite"></span></section>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison-section" id="comparison"><div class="container"><div class="section-title"><p class="eyebrow">THREE-PAYMENT COMPARISON</p><h2>Separate the rate effect from the term effect.</h2><p>The middle column holds principal and remaining term constant. The proposed refinance column uses the actual new term and adds switching fees to principal only when you choose to finance them.</p></div><div class="comparison-table-wrap"><table class="comparison-table refi-comparison-table"><thead><tr><th>Measure</th><th>Current loan</th><th>New rate · same term</th><th>Proposed refinance</th></tr></thead><tbody>
+      <tr><td>Starting principal</td><td id="tableCurrentPrincipal">—</td><td id="tableRateOnlyPrincipal">—</td><td id="tableProposedPrincipal">—</td></tr>
+      <tr><td>Interest rate</td><td id="tableCurrentRate">—</td><td id="tableRateOnlyRate">—</td><td id="tableProposedRate">—</td></tr>
+      <tr><td>Remaining / proposed term</td><td id="tableCurrentTerm">—</td><td id="tableRateOnlyTerm">—</td><td id="tableProposedTerm">—</td></tr>
+      <tr><td>Repayment per cycle</td><td id="tableCurrentPayment">—</td><td id="tableRateOnlyPayment">—</td><td id="tableProposedPayment">—</td></tr>
+      <tr><td>Lifetime interest</td><td id="tableCurrentInterest">—</td><td id="tableRateOnlyInterest">—</td><td id="tableProposedInterest">—</td></tr>
+      <tr><td>Modeled payoff horizon</td><td id="tableCurrentPayoff">—</td><td id="tableRateOnlyPayoff">—</td><td id="tableProposedPayoff">—</td></tr>
+    </tbody></table></div>
+    <div class="refi-chart-card" style="margin-top:20px"><div class="refi-chart-head"><div><span class="result-kicker">MODELED REFINANCE ADVANTAGE OVER TIME</span><strong id="chartHeadline">Complete the comparison to see the cost path.</strong></div><div class="refi-chart-key"><span><i class="refi-key-line"></i>Advantage</span><span><i class="refi-key-zero"></i>Zero / break-even</span></div></div><svg id="advantageChart" class="refi-advantage-chart" viewBox="0 0 800 280" role="img" aria-labelledby="advantageChartTitle advantageChartDesc"><title id="advantageChartTitle">Modeled refinance economic advantage over time</title><desc id="advantageChartDesc">The chart is generated from the same period-by-period result object used in the visible summary.</desc><g id="advantageChartPlot"></g></svg><div class="refi-chart-summary" id="chartSummary">Visible results above and the comparison table remain the accessible source of truth; no hover is required.</div></div></div></section>
+
+    <section class="analysis-section alt" id="methodology"><div class="container"><div class="section-title"><p class="eyebrow">HOW THE BREAK-EVEN MODEL WORKS</p><h2>Compare borrowing cost, not just payments.</h2><p>Principal repayment moves debt from outstanding to repaid; it is not itself a borrowing cost. Carrowmont compares cumulative interest plus entered switching costs and cashback.</p></div><div class="methodology-grid"><article class="methodology-card"><h3>Calculation sequence</h3><ol><li>Model the current loan from balance, rate, remaining term and repayment frequency.</li><li>Model the new rate over the same remaining term using the same principal. This isolates the rate effect.</li><li>Model the proposed refinance using the lender's proposed term and any financed switching fees.</li><li>At each repayment period, compare current-loan interest with refinance interest plus net switching cost.</li><li>Call break-even only when the advantage becomes non-negative and does not turn negative again through the full modeled horizon.</li><li>If you enter a holding period, show the modeled saving or additional cost at that checkpoint separately from lifetime economics.</li></ol></article><aside class="methodology-card"><h3>Important limitations</h3><ul><li>No lender ranking, eligibility decision or rate feed.</li><li>No automatic country penalty, tax or legal-rule calculation.</li><li>V1 holds the entered rates constant and uses one repayment frequency for both loans.</li><li>Property value, selling costs, future refinancing and variable-rate paths are not modeled.</li></ul><a class="btn btn-secondary" href="/mortgage-refinance-break-even.html">Read the refinance break-even guide</a></aside></div></div></section>
+
+    <section class="analysis-section"><div class="container"><div class="section-title"><p class="eyebrow">CONTINUE THE MORTGAGE JOURNEY</p><h2>Keep each decision mathematically separate.</h2></div><div class="decision-links"><a href="prepayment-vs-investing.html"><strong>Prepayment vs Investing</strong><span>Compare using extra cash against the loan with investing the same planned cash.</span></a><a href="decision-centre.html"><strong>Mortgage Decision Centre</strong><span>Return to the four mortgage decisions and see what is live or planned next.</span></a></div></div></section>
+
+    <section class="faq-section" id="faq"><div class="container"><div class="section-title"><p class="eyebrow">FAQ</p><h2>Questions about refinance break-even</h2></div><div class="faq-list"><details><summary>Why show a new-rate payment using my old remaining term?</summary><p>It isolates the rate effect. If the lender also stretches the term, the actual proposed payment can fall for two different reasons: the rate and the longer repayment horizon.</p></details><details><summary>Why are financed fees still counted as a cost?</summary><p>Financing changes when the fee is paid, not whether it exists. The fee is added to the new principal and also creates additional interest.</p></details><details><summary>Why can a refinance cross break-even and later become unfavorable?</summary><p>A long term can produce early interest savings but accumulate more interest later. Carrowmont therefore uses a durable break-even that remains non-negative through the full modeled comparison horizon.</p></details><details><summary>Does this tell me whether I should refinance?</summary><p>No. It is an educational borrowing-cost comparison under the assumptions you enter. Affordability, eligibility, lender terms, taxes, legal rules and future rate changes require separate consideration.</p></details></div></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand-block"><a class="footer-wordmark" href="/">CARROWMONT</a><strong class="footer-product-name" id="footerProductName">Home Loan Balance Transfer Break-Even</strong><p>Separate rate savings, term changes and switching costs before treating a lower payment as a better outcome.</p><span class="footer-small">Educational decision tool · Carrowmont</span></div><div class="footer-col"><strong>Mortgage tools</strong><a href="/mortgage-payoff-calculator/">Payoff / Prepayment</a><a href="decision-centre.html">Mortgage Decision Centre</a><a href="prepayment-vs-investing.html">Prepayment vs Investing</a><a href="refinance-break-even.html" aria-current="page">Refinance Break-Even</a></div><div class="footer-col"><strong>Carrowmont</strong><a href="/learn.html#home-loans">Mortgage Learn</a><a href="/methodology.html">Methodology</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></div><div class="footer-col"><strong>Legal</strong><a href="/disclaimer.html">Disclaimer</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div></div><div class="container footer-bottom"><span>&copy; 2026 Carrowmont · <span id="footerProductBottom">Home Loan Balance Transfer Break-Even</span></span><span>Illustrative estimates, not financial advice.</span></div></footer>
+
+  <script src="locale.js"></script>
+  <script src="core.js"></script>
+  <script src="mortgage-decision-profile.js"></script>
+  <script src="refinance-break-even-core.js"></script>
+  <script src="pdf-export.js"></script>
+  <script src="report-standard.js"></script>
+  <script src="refinance-break-even-pdf-renderer.js"></script>
+  <script src="refinance-break-even.js"></script>
+  <script src="analytics.js" data-carrowmont-tool="mortgage-refinance-break-even"></script>
+</body>
+</html>
