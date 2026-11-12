@@ -86,6 +86,20 @@
     };
   }
 
+  function applyMyCarrowmontPlan(input){
+    if(!input||typeof input!=='object')return;
+    if(input.country&&L.regions?.[input.country])L.setLocale(input.country,input.currency&&L.currencies?.[input.currency]?input.currency:L.regions[input.country].currency);
+    const set=(el,value)=>{if(el&&value!==undefined&&value!==null)el.value=String(value);};
+    set(els.balance,input.balance);set(els.annualRate,input.annualRatePct);set(els.remainingYears,input.remainingYears);set(els.remainingMonths,input.remainingMonths);set(els.paymentFrequency,input.paymentFrequency);els.useCurrentPayment.checked=!!input.useCurrentPayment;set(els.currentPayment,input.currentPayment);mode=input.mode||'recurring';planningView=input.planningView||'monthly';set(els.payFrequency,input.payFrequency);els.recurringEnabled.checked=!!input.recurringEnabled;set(els.recurringExtra,input.recurringExtra);set(els.extraFrequency,input.extraFrequency);set(els.extraStartPeriod,input.extraStartPeriod);set(els.customIntervalMonths,input.customIntervalMonths);set(els.optionalLumpSum,input.optionalLumpSum);set(els.optionalLumpSumPeriod,input.optionalLumpSumPeriod);set(els.lumpSumAmount,input.lumpSumAmount);set(els.lumpSumPeriod,input.lumpSumPeriod);set(els.lumpStrategy,input.lumpStrategy);set(els.targetYears,input.targetYears);set(els.targetMonths,input.targetMonths);set(els.targetLumpSum,input.targetLumpSum);set(els.prepaymentCharge,input.prepaymentCharge);set(els.otherCharges,input.otherCharges);userTouched=true;syncLocaleUi();render();
+  }
+  function configureMyCarrowmontSave(){
+    const bridge=window.CarrowmontPlanSave;if(!bridge?.register)return;
+    bridge.register({journey:'mortgage-payoff',toolPath:'/mortgage-payoff-calculator/',anchor:'.result-hero',
+      getPlan(){const input=readInput();if(!userTouched||!lastResult?.ok||!(input.balance>0))return null;const monthly=lastResult.baseline.payment*(C.periodsPerYear?.(input.paymentFrequency)||12)/12;return {label:`${regionIdentity().product} plan`,scenario:{input,summary:{balance:input.balance,annualRatePct:input.annualRatePct,baselinePayoff:lastResult.baseline?.payoffDate,scenarioPayoff:lastResult.scenario?.payoffDate}},profileFacts:{'debt.mortgageBalance':{value:input.balance,unit:L.getCurrency(),source:regionIdentity().product},'debt.mortgageRatePct':{value:input.annualRatePct,unit:'pct',source:regionIdentity().product},'debt.housingPayment':{value:monthly,unit:L.getCurrency(),source:regionIdentity().product}}};},
+      applyPlan:scenario=>applyMyCarrowmontPlan(scenario?.input)
+    });
+  }
+
   const errors={balance:'Enter an outstanding balance greater than zero.',rate:'Enter an annual interest rate between 0% and 50%.',term:'Enter a remaining term greater than zero and no more than 100 years.',payment:'Enter a valid current repayment amount.', 'negative-amortization':'The entered repayment is not high enough to reduce principal under this model. Increase the repayment or use the modeled repayment.', 'recurring-selection':'Enable recurring part-prepayment only after entering an amount and choosing its frequency.',lump:'Enter a lump-sum amount greater than zero.',mode:'Choose a valid scenario mode.','safety-limit':'The model did not reach payoff within the supported period. Review the repayment and rate assumptions.'};
   function showError(code){ const text=errors[code]||'Review the entered values and try again.'; els.validationMessage.textContent=text; els.validationMessage.hidden=false; }
   function clearError(){ els.validationMessage.hidden=true; els.validationMessage.textContent=''; }
@@ -190,6 +204,7 @@
     renderResults(result,input); renderChart(result,input); renderTables(result,input); writeShared(result,input); updateSharedPlanUi();
     const setAside=C.setAsidePerPayCycle(input); els.setAsideAmount.textContent=money(setAside,{decimals:2}); els.setAsideCard.classList.toggle('hidden',!(planningView==='paycycle'&&input.recurringEnabled&&input.extraFrequency&&input.recurringExtra>0));
     const learn=resultLearn(input); $('resultLearnTitle').textContent=learn.title; $('resultLearnText').textContent=learn.text; $('resultLearnLink').setAttribute('href',learn.href);
+    if(userTouched)window.CarrowmontPlanSave?.offer?.('mortgage-payoff');
   }
 
   function summaryText(){
@@ -236,5 +251,5 @@
     $('resetBtn').addEventListener('click',reset); $('copyBtn').addEventListener('click',copySummary); $('csvBtn').addEventListener('click',downloadCsv); $('reportBtn').addEventListener('click',generateReport); $('compareInvestBtn').addEventListener('click',continueToPrepayVsInvest); $('clearSharedBtn').addEventListener('click',toggleSharedLoan);
   }
 
-  populateLocale(); syncLocaleUi(); els.payFrequency.value=countryDefaultPay(); bind(); render();
+  configureMyCarrowmontSave(); populateLocale(); syncLocaleUi(); els.payFrequency.value=countryDefaultPay(); bind(); render();
 })();
