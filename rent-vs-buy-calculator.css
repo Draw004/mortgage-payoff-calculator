@@ -5,3 +5,7 @@
 @media(max-width:980px){.rent1-hero .hero-inner,.rent1-layout,.rent1-method-grid{grid-template-columns:1fr}.rent1-summary{grid-template-columns:1fr 1fr}.rent1-hero-result,.rent1-action-card{grid-column:1/-1}}
 @media(max-width:720px){.rent1-hero{padding-top:28px}.rent1-hero .hero-inner{gap:18px}.rent1-hero h1{font-size:39px;letter-spacing:-1.4px}.rent1-fields,.rent1-summary,.rent1-side-grid,.rent1-links{grid-template-columns:1fr}.rent1-input-card{padding:17px}.rent1-results-grid{grid-template-columns:1fr}.rent1-results-grid>div{border-right:0}.rent1-results-grid>div:nth-last-child(-n+2){border-bottom:1px solid #e1eaed}.rent1-results-grid>div:last-child{border-bottom:0}.rent1-chart-head{display:grid}.rent1-chart-card{padding:14px}.rent1-chart{min-height:190px}}
 @media(max-width:390px){.rent1-hero h1{font-size:35px}.rent1-input-card,.rent1-card{border-radius:15px}.rent1-field input,.rent1-field select{font-size:16px}.rent1-headline{font-size:24px}}
+
+/* FRE8K: composite controls must match adjacent standalone controls exactly. */
+.rent1-money,.rent1-suffix{height:42px;min-height:42px}
+.rent1-money input,.rent1-suffix input{height:40px;min-height:40px}
