@@ -251,5 +251,15 @@
     $('resetBtn').addEventListener('click',reset); $('copyBtn').addEventListener('click',copySummary); $('csvBtn').addEventListener('click',downloadCsv); $('reportBtn').addEventListener('click',generateReport); $('compareInvestBtn').addEventListener('click',continueToPrepayVsInvest); $('clearSharedBtn').addEventListener('click',toggleSharedLoan);
   }
 
-  configureMyCarrowmontSave(); populateLocale(); syncLocaleUi(); els.payFrequency.value=countryDefaultPay(); bind(); render();
+  function addThreePathComparisonLink(){
+    const strategy=$('lumpStrategy');
+    if(!strategy||document.getElementById('threePathComparisonLink'))return;
+    const host=strategy.closest('.field');
+    if(!host)return;
+    const row=document.createElement('div');row.className='field-wide';row.id='threePathComparisonLink';
+    row.innerHTML='<a class="text-btn" href="decision-centre.html#prepay-recast-refinance">Compare prepayment, lower payment and refinance →</a>';
+    host.insertAdjacentElement('afterend',row);
+  }
+
+  configureMyCarrowmontSave(); populateLocale(); syncLocaleUi(); els.payFrequency.value=countryDefaultPay(); addThreePathComparisonLink(); bind(); render();
 })();
